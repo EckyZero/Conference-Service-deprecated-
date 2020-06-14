@@ -1,0 +1,17 @@
+substitutions:
+    APP_NAME: $BRANCH_NAME-$REPO_NAME 
+steps:
+# Deploy/Update related infrastructure
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args: ['deployment-manager', 'deployments', 'update', '$APP_NAME', '--config', 'infrastructure/deployment.yaml', '--create-policy', 'create-or-acquire']
+# Update dependencies
+  - name: node
+    entrypoint: npm
+    args: ['install']
+# Run tests
+  - name: node
+    entrypoint: npm
+    args: ['test']
+# Deploy app 
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args: ['app', 'deploy']
