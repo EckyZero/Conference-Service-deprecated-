@@ -1,5 +1,5 @@
 substitutions:
-    APP_NAME: $BRANCH_NAME-$REPO_NAME 
+    APP_NAME: $REPO_NAME 
 steps:
 # Deploy/Update related infrastructure
   - name: 'gcr.io/cloud-builders/gcloud'
