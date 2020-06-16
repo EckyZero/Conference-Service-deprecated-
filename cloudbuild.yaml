@@ -1,6 +1,9 @@
 substitutions:
     _APP_NAME: $REPO_NAME 
 steps:
+# Enable deployment manager (if needed)
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args: ['services', 'enable', 'deploymentmanager.googleapis.com']
 # Deploy/Update related infrastructure
   - name: 'gcr.io/cloud-builders/gcloud'
     args: ['deployment-manager', 'deployments', 'update', '$_APP_NAME', '--config', 'infrastructure/deployment.yaml', '--create-policy', 'create-or-acquire']
