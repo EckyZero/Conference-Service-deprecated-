@@ -6,7 +6,7 @@ steps:
     args: ['services', 'enable', 'deploymentmanager.googleapis.com']
 # Deploy/Update related infrastructure
   - name: 'gcr.io/cloud-builders/gcloud'
-    args: ['deployment-manager', 'deployments', 'create', '$_APP_NAME', '--config', 'infrastructure/deployment.yaml', '--create-policy', 'create-or-acquire', '--delete-policy', 'delete']
+    args: ['deployment-manager', 'deployments', 'create', '$_APP_NAME', '--config', 'infrastructure/deployment.yaml']
 # Update dependencies
   - name: node
     entrypoint: npm
