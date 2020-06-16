@@ -1,5 +1,5 @@
 substitutions:
-    _APP_NAME: $REPO_NAME 
+    _APP_NAME: talk-service
 steps:
 # Enable deployment manager (if needed)
   - name: 'gcr.io/cloud-builders/gcloud'
