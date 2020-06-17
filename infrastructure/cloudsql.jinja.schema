@@ -14,7 +14,7 @@ properties:
     type: integer
     description: number of read replicas
     minimum: 0
-    maximum: 5
+    maximum: 2
     default: 0
 
   cloudsql:
@@ -29,8 +29,8 @@ properties:
       dataDiskSizeGb:
         type: integer
         minimum: 10
-        maximum: 10000
-        default: 200
+        maximum: 200
+        default: 10
       dataDiskType:
         type: string
         decription: PD_SSD or PD_HDD
@@ -42,7 +42,7 @@ properties:
       tier:
         type: string
         description: https://cloud.google.com/sql/pricing#2nd-gen-pricing
-        default: db-n1-highmem-4
+        default: db-f1-micro
       region:
         type: string
         description: i.e. us-central1
