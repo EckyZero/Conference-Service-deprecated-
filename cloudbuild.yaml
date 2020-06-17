@@ -1,12 +1,14 @@
 substitutions:
     _APP_NAME: talk-service
+    _CONFIG_FILE: 'infrastructure/deployment.yaml'
 steps:
 # Enable deployment manager (if needed)
   - name: 'gcr.io/cloud-builders/gcloud'
     args: ['services', 'enable', 'deploymentmanager.googleapis.com']
 # Deploy/Update related infrastructure
-  - name: 'gcr.io/cloud-builders/gcloud'
-    args: ['deployment-manager', 'deployments', 'create', '$_APP_NAME', '--config', 'infrastructure/deployment.yaml']
+  - name: gcr.io/cloud-builders/gcloud
+    entrypoint: 'bash'
+    args: ['-set eEo pipefail', '-c', 'infrastructure/cloudbuild.sh', '$_APP_NAME', '$_CONFIG_FILE']
 # Update dependencies
   - name: node
     entrypoint: npm
