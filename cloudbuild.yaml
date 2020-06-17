@@ -8,7 +8,7 @@ steps:
 # Deploy/Update related infrastructure
   - name: gcr.io/cloud-builders/gcloud
     entrypoint: 'bash'
-    args: ['-set eEo pipefail', '-c', 'infrastructure/cloudbuild.sh', '$_APP_NAME', '$_CONFIG_FILE']
+    args: ['infrastructure/cloudbuild.sh', '$_APP_NAME', '$_CONFIG_FILE']
 # Update dependencies
   - name: node
     entrypoint: npm
