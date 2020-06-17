@@ -12,7 +12,7 @@ if [ ${exists} -eq 0 ]; then
     gcloud deployment-manager deployments update ${APP_NAME} --config=${CONFIG_FILE}
 else
     # Enable Cloud SQL
-    gcloud services enable qladmin.googleapis.com
+    gcloud services enable sqladmin.googleapis.com
     
     # Enable deployment manager
     gcloud services enable deploymentmanager.googleapis.com
