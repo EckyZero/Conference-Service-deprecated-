@@ -5,7 +5,7 @@ resources:
     type: cloudsql.jinja
     properties:
       database:
-        name: $_APP_NAME
+        name: $_APP_NAME-cloudsql
       dbUser:
         user: admin
         password: test123_
