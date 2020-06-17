@@ -1,7 +1,7 @@
 imports:
   - path: cloudsql.jinja
 resources:
-  - name: cloudsql.jinja
+  - name: cloudsql
     type: cloudsql.jinja
     properties:
       database:
