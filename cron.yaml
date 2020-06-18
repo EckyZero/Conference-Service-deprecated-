@@ -1,0 +1,4 @@
+cron:
+- description: "update talks every week"
+  url: /
+  schedule: every 1 week

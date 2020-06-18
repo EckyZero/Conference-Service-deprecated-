@@ -6,8 +6,5 @@ resources:
     properties:
       database:
         name: $_APP_NAME-cloudsql
-      dbUser:
-        user: admin
-        password: test123_
       failover: true
       readReplicas: 1

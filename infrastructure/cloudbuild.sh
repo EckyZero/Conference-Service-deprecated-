@@ -12,7 +12,7 @@ if [ ${exists} -eq 0 ]; then
     gcloud deployment-manager deployments update ${APP_NAME} --config=${CONFIG_FILE}
 else
     # Increase build time since infrastructure may take awhile
-    # gcloud config set app/cloud_build_timeout 1800
+    gcloud config set app/cloud_build_timeout 1800
     
     # Enable Cloud SQL
     gcloud services enable sqladmin.googleapis.com
