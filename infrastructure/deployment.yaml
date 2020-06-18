@@ -1,7 +1,7 @@
 imports:
   - path: cloudsql.jinja
 resources:
-  - name: cloudsql
+  - name: talk-db
     type: cloudsql.jinja
     properties:
       database:
