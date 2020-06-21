@@ -13,6 +13,8 @@
     "pug": "~3.0.0",
     "morgan": "~1.9.1",
     "mysql2": "~2.1.0",
-    "@google-cloud/secret-manager": "~3.0.0"
+    "@google-cloud/secret-manager": "~3.0.0",
+    "axios": "~0.19.2",
+    "cheerio": "~1.0.0-rc.3"
   }
 }
