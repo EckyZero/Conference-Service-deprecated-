@@ -19,9 +19,24 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.get('/', async (req,res) => {
     const testResponse  = { field: "Hello", value: "World"};
     const $ = await fetchData();
-    const topicUrls = $('.lumen-content').find('.lumen-tile a').map((i,el) => { return siteDomain + el.attribs.href; })
+    
+    const results = $('.lumen-content').find('.lumen-tile a').map((i, el) => {
+        const relativePath = el.attribs.href;
+        const topicCounts = el.firstChild.data.split('(');
+        const name = topicCounts[0].trim();
+        const count = topicCounts[1] ? topicCounts[1].trim().slice(0, -1) : null;
+        const language = relativePath.substring(relativePath.lastIndexOf("lang="), relativePath.length).split('=')[1].split('&')[0];
 
-    return res.status(200).send(testResponse);
+        return {
+            "topic": name,
+            "tag": name.replace(/\s/g, '-').toLowerCase(),
+            "url": siteDomain + relativePath,
+            "count": count,
+            "language": language
+        };
+    }).get();
+
+    return res.status(200).send(results);
 });
 
 const fetchData = async () => {
