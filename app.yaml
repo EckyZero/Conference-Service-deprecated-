@@ -1,5 +1,4 @@
-runtime: nodejs12
-service: service-name
+runtime: nodejs10
 env: standard
 
 automatic_scaling:
