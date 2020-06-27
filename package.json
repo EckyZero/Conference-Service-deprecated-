@@ -17,6 +17,7 @@
     "cheerio": "~1.0.0-rc.3",
     "async": "~3.2.0",
     "bunyan": "~1.8.12",
-    "needle": "~2.5.0"
+    "needle": "~2.5.0",
+    "puppeteer": "~4.0.1"
   }
 }

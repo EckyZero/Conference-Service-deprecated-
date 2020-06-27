@@ -4,9 +4,15 @@ const topicService = require('../services/topicService');
 
 const getTalks = async function () {
     const topics = await topicService.getTopics();
+    
     return topics;
 };
 
+const getTalkDetails = async function () {
+
+};
+
 module.exports = {
-    getTalks: getTalks
+    getTalks: getTalks,
+    getTalkDetails: getTalkDetails
 };
