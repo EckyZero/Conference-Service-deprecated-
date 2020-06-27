@@ -1,10 +1,10 @@
 'use strict';
 
-const topicService = require('../services/topicService');
+const topicService = require('../topics/topicService');
 
 const getTalks = async function () {
     const topics = await topicService.getTopics();
-    
+
     return topics;
 };
 

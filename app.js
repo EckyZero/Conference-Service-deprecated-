@@ -6,7 +6,7 @@ const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
-const talkService = require('./services/talkService');
+const talkService = require('./domains/talks/talkService');
 
 const app = express();
 
