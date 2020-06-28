@@ -1,18 +1,19 @@
 'use strict';
 
-const topicService = require('../topics/topicService');
+class TalkService {
+    constructor(opts) {
+        this.topicService = opts.topicService;
+    }
 
-const getTalks = async function () {
-    const topics = await topicService.getTopics();
+    async getTalks () {
+        const topics = await this.topicService.getTopics();
+    
+        return topics;
+    };
 
-    return topics;
-};
+    async getTalkDetails () {
 
-const getTalkDetails = async function () {
+    };
+}
 
-};
-
-module.exports = {
-    getTalks: getTalks,
-    getTalkDetails: getTalkDetails
-};
+module.exports = TalkService;

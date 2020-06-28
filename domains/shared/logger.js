@@ -1,6 +1,16 @@
 'use strict';
 
-const bunyan = require('bunyan');
-const logger = bunyan.createLogger({name: "talk-service"});
+const _bunyan = require('bunyan');
+const _logger = _bunyan.createLogger({name: "talk-service"});
 
-module.exports = logger;
+class Logger {
+    constructor(opts) {
+
+    }
+
+    info () {
+        log.info(e, `Error Scraping: ${topicUrl}`);
+    }
+}
+
+module.exports = Logger;

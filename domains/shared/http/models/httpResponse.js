@@ -1,9 +1,10 @@
-class Response {
+class HttpResponse {
     constructor (isError, message, content) {
         this.isError = isError;
         this.message = message;
-        this.content = content;
+        this.exception = exception;
+        this.results = results;
     }
 }
 
-module.exports = Response;
+module.exports = HttpResponse;
