@@ -13,6 +13,7 @@ class ApiClient {
         let response = new HttpResponse();
 
         try {
+            // TODO: Start timing request
             const results = await _needle("get",url);
 
             response.isError = false;
@@ -26,7 +27,10 @@ class ApiClient {
             response.isError = true
             response.message = message;
             response.exception = e;
-            response.results = results;
+        }
+        finally {
+            // TODO: Stop timing request
+            // TODO: Log total time
         }
 
         return response;

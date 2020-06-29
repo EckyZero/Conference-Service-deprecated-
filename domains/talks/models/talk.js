@@ -1,10 +1,10 @@
 class Talk {
-    constructor(title, description, speaker, session, media) {
+    constructor(title, speaker, session, detailUrl, thumbnailUrl, description, sessionOrder) {
         this.title = title;
-        this.description = description;
         this.speaker = speaker;
         this.session = session;
-        this.media = media;
+        this.detailUrl = detailUrl;
+        this.thumbnailUrl = thumbnailUrl;
     }
 }
 

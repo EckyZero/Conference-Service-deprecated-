@@ -1,5 +1,8 @@
-const _nameParser = require('../nameParser');
+const NameParser = require('../../shared/nameParser');
 
+const _nameParser = new NameParser();
+
+// TODO: Move to Dependency Injection
 class Speaker {
     constructor(preferredName) {
         this.preferredName = preferredName;

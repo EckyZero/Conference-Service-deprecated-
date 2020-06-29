@@ -6,7 +6,8 @@ const TopicService   = require('../topics/topicService');
 const TopicScraper   = require('../topics/topicScraper');
 const Logger         = require('./logger');
 const Timer          = require('./timer');
-const NameParser     = require('../speakers/nameParser');
+const NameParser     = require('./nameParser');
+const DateParser     = require('./dateParser');
 const ApiClient      = require('./http/apiClient');
 
 const { createContainer, asClass, Lifetime } = require('awilix');
@@ -29,6 +30,7 @@ class IocConstructor {
             logger: asClass(Logger),
             timer: asClass(Timer),
             nameParser: asClass(NameParser),
+            dateParser: asClass(DateParser),
             configs: asClass(ConfigConstructor, { lifetime: Lifetime.SINGLETON }),
         });
 

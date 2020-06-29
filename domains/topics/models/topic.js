@@ -1,8 +1,8 @@
 'use strict';
 
 class Topic {
-    constructor(name, tag, url, count) {
-        this.name = name;
+    constructor(title, tag, url, count) {
+        this.title = title;
         this.tag = tag;
         this.talksUrl = url;
         this.talksCount = count;

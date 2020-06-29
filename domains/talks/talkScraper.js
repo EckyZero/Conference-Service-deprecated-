@@ -1,35 +1,43 @@
-class TalkScraper {
+const _routes     = require(`../../configs/routes.json`); 
+const BaseScraper = require('../shared/baseScraper');
+const Talk        = require('../talks/models/talk');
+const Speaker     = require('../speakers/models/speaker');
+const Session     = require('../conferences/models/session');
+const Conference  = require('../conferences/models/conference');
+
+class TalkScraper extends BaseScraper {
     constructor(opts) {
-        
+        super(opts);
     }
 
-    async getTalks (talksUrl) {
+    // TODO: Some of the pages have pagination - need to figure out how to handle that
+    // TODO: Or bbetter yet, figure out how to paginate myself
+    // TODO: Document endpoint
+    // (ex: Tithing)
+    async getTalk (topic) {
 
+        let talkUrl  = (_routes.BASE_URL + _routes.TALK_PATH).replace('$@',topic);
         let results = null;
-    
-        try {
-            const siteContent = await needle("get",talksUrl);
-            const $ = cheerio.load(siteContent.body);
+
+        const $ = await super.loadHtmlContentFromUrl(talkUrl);
         
-            results = $('.lumen-tile').map((i, el) => {
-                const talkUrl = routes.BASE_URL + $(el).find('.lumen-tile__title').find('a')[0].attribs.href;
-                const talkTitle = $(el).find('.lumen-tile__title').find('a')[0].firstChild.data.trim();
-                const talkSpeaker = $(el).find('.lumen-tile__content')[0].firstChild.data.trim();
-                const talkDate = $(el).find('.lumen-tile__metadata')[0].firstChild.data.trim();
-                const talkThumbnailUrl = $(el).find('.lumen-image__image')[0] ? routes.BASE_URL + $(el).find('.lumen-image__image')[0].attribs["data-src"] : null;
-                
-                return {
-                    "talkUrl": talkUrl,
-                    "title": talkTitle,
-                    "speaker": talkSpeaker,
-                    "date": talkDate,
-                    "thumbnailUrl": talkThumbnailUrl
-                };
-            }).get();
-        }
-        catch (e) {
-            log.info(e, `Error Scraping: ${topicUrl}`);
-        }
+        // TODO: need a better way to handle null or undefined consistently
+        if ($ === undefined || $ === null) { return null; }
+    
+        results = $('.lumen-tile').map((i, el) => {
+            const talkUrl = _routes.BASE_URL + $(el).find('.lumen-tile__title').find('a')[0].attribs.href;
+            const talkTitle = $(el).find('.lumen-tile__title').find('a')[0].firstChild.data.trim();
+            const talkSpeaker = $(el).find('.lumen-tile__content')[0].firstChild.data.trim();
+            const talkDate = $(el).find('.lumen-tile__metadata')[0].firstChild.data.trim().split(' ');
+            const talkThumbnailUrl = $(el).find('.lumen-image__image')[0] ? _routes.BASE_URL + $(el).find('.lumen-image__image')[0].attribs["data-src"] : null;
+            
+            const speaker = new Speaker(talkSpeaker);
+            const conference = new Conference(talkDate[0], parseInt(talkDate[1]));
+            const session = new Session(null, null, conference)
+            const talk = new Talk(talkTitle, speaker, session, talkUrl, talkThumbnailUrl);
+            return talk;
+        }).get();
+        
         
         return results;
     };

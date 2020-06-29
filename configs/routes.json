@@ -1,4 +1,5 @@
 {
     "BASE_URL": "https://www.churchofjesuschrist.org",
-    "TOPIC_PATH": "/general-conference/topics?lang=eng"
+    "TOPIC_PATH": "/general-conference/topics?lang=eng",
+    "TALK_PATH": "/general-conference/topics/$@?lang=eng&encoded=true"
 }

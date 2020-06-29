@@ -5,7 +5,9 @@ class NameParser {
         if (fullName === undefined) return null;
         if (typeof fullName !== 'string') return null;
     
-        const firstName = trimName(names[0]);
+        const names = fullName.split(' ');
+
+        const firstName = this.trimName(names[0]);
                               
         return firstName;
     }
@@ -19,7 +21,7 @@ class NameParser {
     
         if (names.length < 1) return null;
     
-        const middleName = trimName(names[1]);
+        const middleName = this.trimName(names[1]);
                               
         return middleName;
     }
@@ -33,7 +35,7 @@ class NameParser {
     
         if (names.length < 2) return null;
     
-        const lastName = trimName(names[2]);
+        const lastName = this.trimName(names[2]);
                               
         return lastName;
     }
@@ -43,7 +45,7 @@ class NameParser {
         if (name === undefined) return null;
         if (typeof name !== 'string') return null;
     
-        const trimmedName = name.replace(/./g, '')
+        const trimmedName = name.replace(/\./g, '')
                                 .trim();
     
         return trimmedName;

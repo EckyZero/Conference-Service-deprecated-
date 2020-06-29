@@ -1,7 +1,7 @@
 class Session {
-    constructor(name, order, conference) {
+    constructor(name, conferenceOrder, conference) {
         this.name = name;
-        this.order = order;
+        this.conferenceOrder = conferenceOrder;
         this.conference = conference;
     }
 }

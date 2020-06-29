@@ -8,8 +8,8 @@ class Logger {
 
     }
 
-    info () {
-        log.info(e, `Error Scraping: ${topicUrl}`);
+    info (exception, message) {
+        _logger.info(exception, message);
     }
 }
 

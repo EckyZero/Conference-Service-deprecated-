@@ -12,6 +12,7 @@ const _topicService = _container.resolve(_constants.TOPIC_SERVICE);
 
 _router.get('/', async function(req, res) {
 
+    // TODO: abstract DB to a constant
     let source = req.query.source ? req.query.source : 'db';
 
     const topics = await _topicService.getAllTopics(source);
