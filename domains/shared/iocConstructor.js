@@ -1,4 +1,3 @@
-
 'use strict';
 
 const TalkService    = require('../talks/talkService');
@@ -10,27 +9,27 @@ const Timer          = require('./timer');
 const NameParser     = require('../speakers/nameParser');
 const ApiClient      = require('./http/apiClient');
 
-const { createContainer, asClass } = require('awilix');
+const { createContainer, asClass, Lifetime } = require('awilix');
+const ConfigConstructor = require('./configConstructor');
 
 class IocConstructor {
     constructor() {
 
     }
 
-    // TODO: Test IoC setup
     initialize () {
         const container = createContainer();
 
         container.register({
             apiClient: asClass(ApiClient),
-            baseScraper: asClass(BaseScraper),
             talkService: asClass(TalkService),
             talkScraper: asClass(TalkScraper),
             topicService: asClass(TopicService),
-            topicScraper: asClass(TopicScraper), // TODO: Finish IoC Setup for Topic Scraper
+            topicScraper: asClass(TopicScraper),
             logger: asClass(Logger),
             timer: asClass(Timer),
-            nameParser: asClass(NameParser) // TODO: Finish IoC Setup for Name Parser
+            nameParser: asClass(NameParser),
+            configs: asClass(ConfigConstructor, { lifetime: Lifetime.SINGLETON }),
         });
 
         return container;

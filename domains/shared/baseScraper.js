@@ -1,8 +1,22 @@
 const _cheerio = require('cheerio');
+const HttpResponse = require('./http/models/httpResponse');
 
 class BaseScraper {
     constructor(opts) {
+        this.apiClient = opts.apiClient;
+    }
+
+    async loadHtmlContentFromUrl(url) {
         
+        let response = new HttpResponse();
+        
+        response = await this.apiClient.get(url);
+
+        if (response.isError) return null;
+
+        const $ = this.loadHtmlContent(response.results);
+
+        return $;
     }
 
     loadHtmlContent(html) {
@@ -19,7 +33,7 @@ class BaseScraper {
         if (parentElement.childNodes == null || parentElement.childNodes.length == 0) { return childElements; } // check safety of children before recursevly looking further
         
         for (let i = 0; i < parentElement.childNodes.length; i++) {
-            const childElement = getChildElementsWithText(textToFind);
+            const childElement = this.getChildElementsWithText(textToFind);
             if (childElement != null) { 
                 childElements.push(childElements); 
             }

@@ -9,7 +9,7 @@ class ApiClient {
         this.logger = opts.logger;
     }
 
-    get (url) {
+    async get (url) {
         let response = new HttpResponse();
 
         try {

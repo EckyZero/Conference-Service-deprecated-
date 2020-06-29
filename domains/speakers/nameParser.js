@@ -1,56 +1,54 @@
-const parseFirstName = function (fullName) {
-
-    if (fullName === undefined) return null;
-    if (typeof fullName !== 'string') return null;
-
-    const firstName = trimName(names[0]);
-                          
-    return firstName;
-}
-
-const parseMiddleName = function (fullName) {
-
-    if (fullName === undefined) return null;
-    if (typeof fullName !== 'string') return null;
-
-    const names = fullName.split(' ');
-
-    if (names.length < 1) return null;
-
-    const middleName = trimName(names[1]);
-                          
-    return middleName;
-}
-
-const parseLastName = function (fullName) {
+class NameParser {
     
-    if (fullName === undefined) return null;
-    if (typeof fullName !== 'string') return null;
+    parseFirstName (fullName) {
 
-    const names = fullName.split(' ');
-
-    if (names.length < 2) return null;
-
-    const lastName = trimName(names[2]);
-                          
-    return lastName;
+        if (fullName === undefined) return null;
+        if (typeof fullName !== 'string') return null;
+    
+        const firstName = trimName(names[0]);
+                              
+        return firstName;
+    }
+    
+    parseMiddleName (fullName) {
+    
+        if (fullName === undefined) return null;
+        if (typeof fullName !== 'string') return null;
+    
+        const names = fullName.split(' ');
+    
+        if (names.length < 1) return null;
+    
+        const middleName = trimName(names[1]);
+                              
+        return middleName;
+    }
+    
+    parseLastName (fullName) {
+        
+        if (fullName === undefined) return null;
+        if (typeof fullName !== 'string') return null;
+    
+        const names = fullName.split(' ');
+    
+        if (names.length < 2) return null;
+    
+        const lastName = trimName(names[2]);
+                              
+        return lastName;
+    }
+    
+    trimName (name) {
+    
+        if (name === undefined) return null;
+        if (typeof name !== 'string') return null;
+    
+        const trimmedName = name.replace(/./g, '')
+                                .trim();
+    
+        return trimmedName;
+    }
+    
 }
 
-const trimName = function (name) {
-
-    if (name === undefined) return null;
-    if (typeof name !== 'string') return null;
-
-    const trimmedName = name.replace(/./g, '')
-                            .trim();
-
-    return trimmedName;
-}
-
-
-module.exports = {
-    parseFirstName:  parseFirstName,
-    parseMiddleName: parseMiddleName,
-    parseLastName:   parseLastName,
-    trimName:        trimName
-}
+module.exports = NameParser;

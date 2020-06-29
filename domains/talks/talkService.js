@@ -5,11 +5,15 @@ class TalkService {
         this.topicService = opts.topicService;
     }
 
-    async getTalks () {
+    async getAllTalks () {
         const topics = await this.topicService.getTopics();
     
         return topics;
     };
+
+    async getTalksByTopic () {
+
+    }
 
     async getTalkDetails () {
 

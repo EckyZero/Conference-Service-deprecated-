@@ -1,30 +1,30 @@
 'use strict';
 
-const _async         = require('async');
-const _topicScraper  = require('./topicScraper');
-
 class TopicService {
     constructor(opts) {
         this.topicScraper = opts.topicScraper;
     }
 
-    async getTopics () {
-        const topics = await this.topicScraper.getTopics();
-    
-        await _async.forEach(topics, async (topic) => {
-            const topicTalks = await this.topicScraper.getTopicTalks(topic.detailUrl);
-            topic.talks = [];
-    
-            await _async.forEach(topicTalks, async (topicTalk) => {
-                const talkDetails = await this.topicScraper.getTopicTalkDetails(topicTalk.talkUrl);
-                
-                topicTalk.details = talkDetails
-                topic.talks.push(topicTalk);
-            });
-        });
-    
+    async getAllTopics (source) {
+        let topics;
+
+        // TODO: Add additional db source once ready
+        // TODO: Move hard-coded strings to constants file
+        if (source === 'web') {
+            topics = await this._getAllTopicsFromWeb(); 
+        }
+        
         return topics;
     };
+
+    async _getAllTopicsFromDb () {
+
+    }
+
+    async _getAllTopicsFromWeb () {
+        const topics = await this.topicScraper.getAllTopics();
+        return topics;
+    }
 }
 
 module.exports = TopicService;
