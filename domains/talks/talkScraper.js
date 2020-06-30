@@ -8,6 +8,7 @@ const Conference  = require('../conferences/models/conference');
 class TalkScraper extends BaseScraper {
     constructor(opts) {
         super(opts);
+        this.dateParser = opts.dateParser;
     }
 
     // TODO: Some of the pages have pagination - need to figure out how to handle that
@@ -32,7 +33,11 @@ class TalkScraper extends BaseScraper {
             const talkThumbnailUrl = $(el).find('.lumen-image__image')[0] ? _routes.BASE_URL + $(el).find('.lumen-image__image')[0].attribs["data-src"] : null;
             
             const speaker = new Speaker(talkSpeaker);
-            const conference = new Conference(talkDate[0], parseInt(talkDate[1]));
+            const conference = new Conference();
+
+            conference.month = this.dateParser.monthStringToInt(talkDate[0]);
+            conference.year = parseInt(talkDate[1]);
+
             const session = new Session(null, null, conference)
             const talk = new Talk(talkTitle, speaker, session, talkUrl, talkThumbnailUrl);
             return talk;

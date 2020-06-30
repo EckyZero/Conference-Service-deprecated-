@@ -1,12 +1,12 @@
-const DateParser = require('../../shared/dateParser');
+' use strict';
 
-const _dateParser = new DateParser();
-
-// TODO: Move to Dependency Injection
 class Conference {
-    constructor(month, year) {
-        this.month = _dateParser.monthStringToInt(month);
-        this.year = year;
+    
+    year;
+    month;
+
+    constructor(opts) {
+        
     }
 }
 
