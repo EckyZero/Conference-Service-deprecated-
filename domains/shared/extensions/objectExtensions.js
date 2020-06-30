@@ -12,22 +12,18 @@ Object.prototype.isBoolean = function() {
     return typeof this === 'boolean';
 }
 
-Object.prototype.isUndefined = function() {
-    return typeof this === undefined;
-}
-
-Object.prototype.isNullOrUndefined = function() {
-    return typeof this === undefined || this === null;
-}
-
 Object.prototype.isArray = function() {
     return Array.isArray(this);
 }
 
-Object.prototype.isFunction = function() {
-    return typeof this === 'function';
-}
-
 Object.prototype.isObject = function() {
-    return typeof this === 'object';
+    let isObject = typeof this === 'object';
+
+    // typeof returns true for objecrts and arrays
+    // extra check that object is printed, and not array
+    if (isObject) {
+        isObject = this.toString().includes('object');
+    }
+
+    return isObject;
 }
