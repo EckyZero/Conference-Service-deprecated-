@@ -9,6 +9,7 @@ const Timer          = require('./timer');
 const NameParser     = require('./nameParser');
 const DateParser     = require('./dateParser');
 const ApiClient      = require('./http/apiClient');
+const ObjectValidator= require('../shared/objectValidator');
 
 const { createContainer, asClass, Lifetime } = require('awilix');
 const ConfigConstructor = require('./configConstructor');
@@ -22,6 +23,7 @@ class IocConstructor {
         const container = createContainer();
 
         container.register({
+            objectValidator: asClass(ObjectValidator),
             apiClient: asClass(ApiClient),
             talkService: asClass(TalkService),
             talkScraper: asClass(TalkScraper),

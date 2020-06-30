@@ -4,29 +4,29 @@ const _monthStrings = ["january",    "february","march",    "april",
                         "september", "october", "november", "december"];
 
 class DateParser {
+    constructor(opts) {
+        this.objectValidator = opts.objectValidator;
+    }
     
     monthStringToInt (month) {
 
-        // TODO: Add type of checks to helper class
-        if (month === undefined || month === null || month.length == 0) return null;
-        if (typeof month !== 'string') return null;
+        if (!this.objectValidator.isString()) return null;
+        if (month.length < 3) return null;
         
-        const formattedMonth = month.toLowerCase().trim();
+        const formattedMonth = month.toLowerCase().trim().substring(0,3);
 
-        // TODO: Add additional checks to validate unfound indexes
-        const monthInt = _monthStrings.indexOf(formattedMonth) + 1;
+        const monthInt = _monthStrings.findIndex(el => el.includes(formattedMonth)) + 1;
+        const response = monthInt === 0 ? null : monthInt;
 
-        return monthInt;
+        return response;
     }
     
-    intMonthToYear (month) {
+    intMonthToString (month) {
     
-        // TODO: Add type of checks to helper class
-        if (month === undefined || month === null || month.length == 0) return null;
-        if (typeof month !== 'number') return null;
+        if (!this.objectValidator.isNumber(month)) return null;
 
         // TODO: Add additional checks to validate if not found
-        const monthString = _monthStrings[month];
+        const monthString = _monthStrings[month - 1] ? _monthStrings[month - 1] : null;
 
         return monthString;
     }
