@@ -1,9 +1,11 @@
 ' use strict';
 
+/**
+ * General Conference Object
+ */
 class Conference {
-    
-    year;
-    month;
+  year;
+  month;
 }
 
 module.exports = Conference;

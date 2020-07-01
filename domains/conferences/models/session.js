@@ -1,8 +1,12 @@
-class Session {
+'use strict';
 
-    name;
-    conferenceOrder;
-    conference;
+/**
+ * General Conference Session Object
+ */
+class Session {
+  name;
+  conferenceOrder;
+  conference;
 }
 
 module.exports = Session;

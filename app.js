@@ -1,10 +1,13 @@
 'use strict';
 
-const _express          = require('express');
-const _path             = require('path');
-const _cookieParser     = require('cookie-parser');
-const talkRouter        = require('./domains/talks/talkRouter');
-const topicRouter       = require('./domains/topics/topicRouter');
+// TODO: Create public swagger
+// TODO: Require API Keys
+
+const _express = require('express');
+const _path = require('path');
+const _cookieParser = require('cookie-parser');
+const talkRouter = require('./domains/talks/talkRouter');
+const topicRouter = require('./domains/topics/topicRouter');
 
 const _app = _express();
 

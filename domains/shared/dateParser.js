@@ -10,7 +10,7 @@ class DateParser {
     
     monthStringToInt (month) {
 
-        if (!this.objectValidator.isString()) return null;
+        if (!this.objectValidator.isString(month)) return null;
         if (month.length < 3) return null;
         
         const formattedMonth = month.toLowerCase().trim().substring(0,3);
