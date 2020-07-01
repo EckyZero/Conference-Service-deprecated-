@@ -6,6 +6,7 @@ class TalkService {
     constructor(opts) {
         this.topicService = opts.topicService;
         this.talkScraper = opts.talkScraper;
+        this.objectValidator = opts.objectValidator;
     }
 
     async getAllTalks (source, topics) {
@@ -20,7 +21,7 @@ class TalkService {
 
                 // TODO: Should consider how the response can better indicate this result
                 // TODO: Add a "response" object that holds the response, with metadata about the request at the top level
-                if (talk !== undefined && talk !== null) {
+                if (this.objectValidator.isValid(talk)) {
                     talks = talks.concat(talk);
                 }
             });

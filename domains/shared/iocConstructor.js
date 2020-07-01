@@ -1,9 +1,11 @@
 'use strict';
 
+const TalkValidator     = require('../talks/talkValidator');
 const TalkController    = require('../talks/talkController');
 const TalkService       = require('../talks/talkService');
 const TalkScraper       = require('../talks/talkScraper');
 const TalkBuilder       = require('../talks/talkBuilder');
+const TopicValidator    = require('../topics/topicValidator');
 const TopicController   = require('../topics/topicController');
 const TopicService      = require('../topics/topicService');
 const TopicScraper      = require('../topics/topicScraper');
@@ -32,10 +34,12 @@ class IocConstructor {
         container.register({
             objectValidator: asClass(ObjectValidator),
             apiClient: asClass(ApiClient),
+            talkValidator: asClass(TalkValidator),
             talkController: asClass(TalkController),
             talkService: asClass(TalkService),
             talkScraper: asClass(TalkScraper),
             talkBuilder: asClass(TalkBuilder),
+            topicValidator: asClass(TopicValidator),
             topicController: asClass(TopicController),
             topicService: asClass(TopicService),
             topicScraper: asClass(TopicScraper),

@@ -20,7 +20,6 @@ class TalkScraper extends BaseScraper {
 
         const $ = await super.loadHtmlContentFromUrl(talkUrl);
         
-        // TODO: Add Router for Talks and Topics
         // TODO: Try catch with a specific error (parse Error);
         if (!this.objectValidator.isValid($)) return null;
         

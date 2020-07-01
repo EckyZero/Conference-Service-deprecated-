@@ -1,8 +1,7 @@
 {
     "ENV": "env",
-    "TALK_SERVICE": "talkService",
-    "TOPIC_SERVICE": "topicService",
-    "OBJECT_VALIDATOR": "objectValidator",
     "TALK_CONTROLLER": "talkController",
-    "TOPIC_CONTROLLER": "topicController"
+    "TOPIC_CONTROLLER": "topicController",
+    "TOPIC_VALIDATOR": "topicValidator",
+    "TALK_VALIDATOR": "talkValidator"
 }

@@ -1,5 +1,7 @@
 'use strict';
 
+const _validator = require('express-validator');
+
 class TalkController {
     constructor(opts) {
         this.talkService = opts.talkService;
@@ -8,19 +10,29 @@ class TalkController {
 
     async get(req,res) {
 
-        // TODO: Move db to configuration file
-        let source = req.query.source ? req.query.source : 'db';
-        let topics = [];
+        const errors = _validator.validationResult(req);
 
-        if(this.objectValidator.isArray(req.query.topic)) {
-            topics = req.query.topic; 
-        } else if (this.objectValidator.isString(req.query.topic)) {
-            topics.push(req.query.topic); 
+        if (!errors.isEmpty()) {
+            // TODO: consistent error message format
+            return res.status(400).json({ errors: errors.array() });
+        }
+        
+        let topics = [];
+        const { source, limit, orderBy, topic } = req.query;
+
+        if(this.objectValidator.isArray(topic)) {
+            topics = topic; 
+        } else if (this.objectValidator.isString(topic)) {
+            topics.push(topic); 
         }
 
-        const talks = await this.talkService.getAllTalks(source, topics);
-
-        res.status(200).send(talks);
+        try {
+            const talks = await this.talkService.getAllTalks(source, topics);
+            res.status(200).send(talks);
+        } catch (e) {
+            // TODO: Consistent error message format
+            res.status(200).send(e.message);
+        }
     }
 }
 

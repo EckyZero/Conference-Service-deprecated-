@@ -5,9 +5,12 @@ const IocConstructor    = require('../shared/iocConstructor');
 const _ioc = new IocConstructor();
 const _container = _ioc.initialize();
 const _router = _express.Router({mergeParams: true});
+const _validator = _container.resolve(_constants.TOPIC_VALIDATOR);
 
-_router.get('/', async function(req, res) {
-    return await _container.resolve(_constants.TALK_CONTROLLER).get(req, res);
-});
+// TODO: Install LINT
+_router.get('/', 
+            _validator.validateGet(),
+            async (req, res) =>  await _container.resolve(_constants.TALK_CONTROLLER).get(req, res)
+);
 
 module.exports = _router;
