@@ -17,8 +17,9 @@ class TalkController {
             return res.status(400).json({ errors: errors.array() });
         }
         
-        let topics = [];
+        // todo add support for limit, orderBy, the "DB" source, and merge, union, or distinct with topics
         const { source, limit, orderBy, topic } = req.query;
+        let topics = [];
 
         if(this.objectValidator.isArray(topic)) {
             topics = topic; 
@@ -27,6 +28,7 @@ class TalkController {
         }
 
         try {
+            // TODO: Wrap response in a consistent object
             const talks = await this.talkService.getAllTalks(source, topics);
             res.status(200).send(talks);
         } catch (e) {

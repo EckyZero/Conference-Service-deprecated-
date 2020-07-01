@@ -1,10 +1,10 @@
 'use strict';
 
-const _routes     = require(`../../configs/routes.json`); 
-const BaseBuilder = require("../shared/baseBuilder");
-const Talk        = require('./models/talk');
+const _routes = require('../../configs/routes.json');
+const BaseBuilder = require('../shared/baseBuilder');
+const Talk = require('./models/talk');
 
-class TalkBuilder extends BaseBuilder{
+class TalkBuilder extends BaseBuilder {
 
     constructor(opts) {
         super(opts);

@@ -27,12 +27,7 @@ class TalkService {
             });
         } else {
             // TODO: Add additional db source once ready
-            // TODO: Move hard-coded strings to constants file
-            // if (source === 'web') {
-
-            // }
             // TODO: consolidate this and the similar forEach logic in the above
-            // TODO: determine query logic for "union", "distinct", or "merge"
             await _async.forEach(topics, async (topic) => {
                 const talk = await this.talkScraper.getTalk(topic);
                 talks = talks.concat(talk);

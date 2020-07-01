@@ -1,5 +1,6 @@
 const _expressValidator = require('express-validator');
 
+// TODO: Make compliant with new ESLint
 class TopicValidator {
 
     validateGet() {
