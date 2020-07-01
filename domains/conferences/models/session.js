@@ -1,9 +1,8 @@
 class Session {
-    constructor(name, conferenceOrder, conference) {
-        this.name = name;
-        this.conferenceOrder = conferenceOrder;
-        this.conference = conference;
-    }
+
+    name;
+    conferenceOrder;
+    conference;
 }
 
 module.exports = Session;

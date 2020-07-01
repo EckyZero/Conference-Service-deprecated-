@@ -1,23 +1,18 @@
 'use strict';
 
-const IocConstructor= require('../shared/iocConstructor');
-const _express      = require('express');
-const _constants    = require('../../configs/constants.json');
+class TopicController {
+    constructor(opts) {
+        this.topicService = opts.topicService;
+    }
 
-const _router  = _express.Router({mergeParams: true});
+    async get(req,res) {
+        // TODO: abstract DB to a constant
+        let source = req.query.source ? req.query.source : 'db';
 
-const _ioc = new IocConstructor();
-const _container = _ioc.initialize();
-const _topicService = _container.resolve(_constants.TOPIC_SERVICE);
+        const topics = await this.topicService.getAllTopics(source);
 
-_router.get('/', async function(req, res) {
+        res.status(200).send(topics);
+    }
+}
 
-    // TODO: abstract DB to a constant
-    let source = req.query.source ? req.query.source : 'db';
-
-    const topics = await _topicService.getAllTopics(source);
-
-    res.status(200).send(topics);
-});
-
-module.exports = _router;
+module.exports = TopicController;

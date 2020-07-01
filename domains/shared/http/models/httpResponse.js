@@ -1,4 +1,5 @@
 class HttpResponse {
+    // TODO: Follow builder pattern
     constructor (isError, message, exception, results) {
         this.isError = isError;
         this.message = message;

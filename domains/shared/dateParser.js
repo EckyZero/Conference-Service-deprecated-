@@ -25,7 +25,6 @@ class DateParser {
     
         if (!this.objectValidator.isNumber(month)) return null;
 
-        // TODO: Add additional checks to validate if not found
         const monthString = _monthStrings[month - 1] ? _monthStrings[month - 1] : null;
 
         return monthString;

@@ -1,14 +1,12 @@
 const _routes     = require(`../../configs/routes.json`); 
 const BaseScraper = require('../shared/baseScraper');
-const Talk        = require('../talks/models/talk');
-const Speaker     = require('../speakers/models/speaker');
-const Session     = require('../conferences/models/session');
-const Conference  = require('../conferences/models/conference');
 
 class TalkScraper extends BaseScraper {
     constructor(opts) {
         super(opts);
         this.dateParser = opts.dateParser;
+        this.talkBuilder = opts.talkBuilder;
+        this.objectValidator = opts.objectValidator;
     }
 
     // TODO: Some of the pages have pagination - need to figure out how to handle that
@@ -22,28 +20,13 @@ class TalkScraper extends BaseScraper {
 
         const $ = await super.loadHtmlContentFromUrl(talkUrl);
         
-        // TODO: need a better way to handle null or undefined consistently
-        if ($ === undefined || $ === null) { return null; }
-    
-        results = $('.lumen-tile').map((i, el) => {
-            const talkUrl = _routes.BASE_URL + $(el).find('.lumen-tile__title').find('a')[0].attribs.href;
-            const talkTitle = $(el).find('.lumen-tile__title').find('a')[0].firstChild.data.trim();
-            const talkSpeaker = $(el).find('.lumen-tile__content')[0].firstChild.data.trim();
-            const talkDate = $(el).find('.lumen-tile__metadata')[0].firstChild.data.trim().split(' ');
-            const talkThumbnailUrl = $(el).find('.lumen-image__image')[0] ? _routes.BASE_URL + $(el).find('.lumen-image__image')[0].attribs["data-src"] : null;
-            
-            const speaker = new Speaker(talkSpeaker);
-            const conference = new Conference();
-
-            conference.month = this.dateParser.monthStringToInt(talkDate[0]);
-            conference.year = parseInt(talkDate[1]);
-
-            const session = new Session(null, null, conference)
-            const talk = new Talk(talkTitle, speaker, session, talkUrl, talkThumbnailUrl);
-            return talk;
-        }).get();
+        // TODO: Add Router for Talks and Topics
+        // TODO: Try catch with a specific error (parse Error);
+        if (!this.objectValidator.isValid($)) return null;
         
-        
+        // TODO: Try catch with a specific error (parse Error);
+        results = this.talkBuilder.buildMany($);
+
         return results;
     };
 

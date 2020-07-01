@@ -1,15 +1,22 @@
 'use strict';
 
-const TalkService    = require('../talks/talkService');
-const TalkScraper    = require('../talks/talkScraper');
-const TopicService   = require('../topics/topicService');
-const TopicScraper   = require('../topics/topicScraper');
-const Logger         = require('./logger');
-const Timer          = require('./timer');
-const NameParser     = require('./nameParser');
-const DateParser     = require('./dateParser');
-const ApiClient      = require('./http/apiClient');
-const ObjectValidator= require('../shared/objectValidator');
+const TalkController    = require('../talks/talkController');
+const TalkService       = require('../talks/talkService');
+const TalkScraper       = require('../talks/talkScraper');
+const TalkBuilder       = require('../talks/talkBuilder');
+const TopicController   = require('../topics/topicController');
+const TopicService      = require('../topics/topicService');
+const TopicScraper      = require('../topics/topicScraper');
+const TopicBuilder      = require('../topics/topicBuilder');
+const SessionBuilder    = require('../conferences/sessionBuilder');
+const ConferenceBuilder = require('../conferences/conferenceBuilder');
+const SpeakerBuilder    = require('../speakers/speakerBuilder');
+const Logger            = require('./logger');
+const Timer             = require('./timer');
+const NameParser        = require('./nameParser');
+const DateParser        = require('./dateParser');
+const ApiClient         = require('./http/apiClient');
+const ObjectValidator   = require('../shared/objectValidator');
 
 const { createContainer, asClass, Lifetime } = require('awilix');
 const ConfigConstructor = require('./configConstructor');
@@ -25,10 +32,17 @@ class IocConstructor {
         container.register({
             objectValidator: asClass(ObjectValidator),
             apiClient: asClass(ApiClient),
+            talkController: asClass(TalkController),
             talkService: asClass(TalkService),
             talkScraper: asClass(TalkScraper),
+            talkBuilder: asClass(TalkBuilder),
+            topicController: asClass(TopicController),
             topicService: asClass(TopicService),
             topicScraper: asClass(TopicScraper),
+            topicBuilder: asClass(TopicBuilder),
+            sessionBuilder: asClass(SessionBuilder),
+            conferenceBuilder: asClass(ConferenceBuilder),
+            speakerBuilder: asClass(SpeakerBuilder),
             logger: asClass(Logger),
             timer: asClass(Timer),
             nameParser: asClass(NameParser),
