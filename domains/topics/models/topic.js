@@ -4,7 +4,6 @@
  * Topic object
  */
 class Topic {
-    
     title;
     tag;
     talksUrl;

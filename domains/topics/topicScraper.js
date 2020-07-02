@@ -1,9 +1,9 @@
 'use strict';
 
-const _routes     = require(`../../configs/routes.json`); 
+const _routes = require('../../configs/routes.json');
 const BaseScraper = require('../shared/baseScraper');
 
-const _topicsUrl  = _routes.BASE_URL + _routes.TOPIC_PATH;
+const _topicsUrl = _routes.BASE_URL + _routes.TOPIC_PATH;
 
 /**
  * Responsible for retrieving and scraping html pages for topic data

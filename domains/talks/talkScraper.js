@@ -50,7 +50,7 @@ class TalkScraper extends BaseScraper {
    */
   async getTalkDetails(topicDetailUrl) {
     let results = null;
-
+    // TODO: Implement
     try {
       const siteContent = await needle("get",topicDetailUrl);
       const $ = cheerio.load(siteContent.body);
