@@ -1,15 +1,20 @@
-const _expressValidator = require('express-validator');
-
+const _validator = require('express-validator');
+// TODO: Add localization?
+/**
+ * Responsible for validating talk queries
+ */
 class TalkValidator {
-
-    validateGet() {
-        return [
-            _expressValidator.query('source', 'missing valid values. Use "web" to fetch the latest data (but may be slow), or "cache" for fast data, but may be a few days old').exists(),
-            _expressValidator.query('limit').optional().isInt(),
-            _expressValidator.query('orderBy').optional().isIn(['talkCount', 'title']),
-            _expressValidator.query('topic').optional()
-        ]
-    }
+  /**
+   * Validate TALK GET requests
+   * @return {Array} - Array of validations
+   */
+  validateGet() {
+    return [
+      _validator.query('source', 'Use "web" or "cache"').exists(),
+      _validator.query('limit').optional().isInt(),
+      _validator.query('orderBy').optional().isIn(['talkCount', 'title']),
+      _validator.query('topic').optional()];
+  }
 }
 
 module.exports = TalkValidator;
