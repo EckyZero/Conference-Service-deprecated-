@@ -13,6 +13,7 @@ class ConfigConstructor {
 
   /**
    * Represents a ConfigConstructor object
+   * @constructor
    * @param {object} opts - IoC object holding dependencies
    */
   constructor(opts){

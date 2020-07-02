@@ -9,6 +9,7 @@ const HttpResponse = require('./http/models/httpResponse');
 class BaseScraper {
   /**
    * Represents a BaseScraper object
+   * @constructor
    * @param {*} opts - IoC object holding dependencies
    */
   constructor(opts) {

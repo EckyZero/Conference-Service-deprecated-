@@ -1,14 +1,14 @@
 'use strict';
 
+/**
+ * Topic object
+ */
 class Topic {
     
     title;
     tag;
     talksUrl;
     talksCount;
-
-    constructor() {
-    }
 }
 
 module.exports = Topic;

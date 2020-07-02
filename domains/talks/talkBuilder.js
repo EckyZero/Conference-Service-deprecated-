@@ -10,6 +10,7 @@ const Talk = require('./models/talk');
 class TalkBuilder extends BaseBuilder {
   /**
   * Represents a TalkBuilder object
+  * @constructor
   * @param {*} opts - IoC object holding dependencies
   */
   constructor(opts) {

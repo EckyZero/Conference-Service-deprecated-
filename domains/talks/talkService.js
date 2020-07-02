@@ -8,6 +8,7 @@ const _async = require('async');
 class TalkService {
   /**
    * Represents a TalkService object
+   * @constructor
    * @param {object} opts - IoC object holding dependencies
    */
   constructor(opts) {

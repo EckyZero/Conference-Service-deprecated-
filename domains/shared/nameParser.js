@@ -6,6 +6,7 @@
 class NameParser {
   /**
    * Represents a NameParser object
+   * @constructor
    * @param {object} opts - IoC object holding dependencies
    */
   constructor(opts) {

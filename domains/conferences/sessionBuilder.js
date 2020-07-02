@@ -9,6 +9,7 @@ const Session = require('./models/session');
 class SessionBuilder extends BaseBuilder {
   /**
    * Represents a SessionBuilder object
+   * @constructor
    * @param {object} opts - IoC object holding dependencies
    */
   constructor(opts) {

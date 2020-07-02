@@ -1,12 +1,13 @@
-const _routes = require(`../../configs/routes.json`);
+const _routes = require('../../configs/routes.json');
 const BaseScraper = require('../shared/baseScraper');
 
 /**
- * Responsible for retrieving and scraping html pages
+ * Responsible for retrieving and scraping html pages for talk data
  */
 class TalkScraper extends BaseScraper {
   /**
    * Represents a TalkScraper object
+   * @constructor
    * @param {object} opts - IoC object holding dependencies
    */
   constructor(opts) {
@@ -14,7 +15,7 @@ class TalkScraper extends BaseScraper {
     this.dateParser = opts.dateParser;
     this.talkBuilder = opts.talkBuilder;
     this.objectValidator = opts.objectValidator;
-    this.logger = opts.logger
+    this.logger = opts.logger;
   }
 
   // TODO: Some of the pages have pagination

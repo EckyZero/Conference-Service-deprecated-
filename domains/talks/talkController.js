@@ -1,7 +1,6 @@
 'use strict';
 
 const _validator = require('express-validator');
-const { nextTick } = require('async');
 
 /**
  * Responsible for validating Talk request inputs and formatting responses
@@ -9,6 +8,7 @@ const { nextTick } = require('async');
 class TalkController {
   /**
    * Represents a TalkController object
+   * @constructor
    * @param {object} opts - IoC object holding dependencies
    */
   constructor(opts) {
@@ -24,6 +24,7 @@ class TalkController {
   async get(req, res) {
     const errors = _validator.validationResult(req);
 
+    // TODO: only support 'GET' metthod - error if not
     if (!errors.isEmpty()) {
       // TODO: consistent error message format
       res.status(400).json({errors: errors.array()});
@@ -35,7 +36,7 @@ class TalkController {
     const {source, topic} = req.query;
     let topics = [];
 
-    if(this.objectValidator.isArray(topic)) {
+    if (this.objectValidator.isArray(topic)) {
       topics = topic;
     } else if (this.objectValidator.isString(topic)) {
       topics.push(topic);
@@ -45,9 +46,11 @@ class TalkController {
       // TODO: Wrap response in a consistent object
       const talks = await this.talkService.getTalks(source, topics);
       res.status(200).send(talks);
+      next();
     } catch (e) {
       // TODO: Consistent error message format
       res.status(200).send(e.message);
+      next();
     }
   }
 }

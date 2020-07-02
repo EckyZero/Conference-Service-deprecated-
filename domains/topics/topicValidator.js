@@ -1,14 +1,18 @@
-const _expressValidator = require('express-validator');
+'use strict';
 
-// TODO: Make compliant with new ESLint
+const _validator = require('express-validator');
+
+/**
+ * Responsible for validating topic queries
+ */
 class TopicValidator {
-
+  /**
+   * Validate TOPIC GET requets
+   * @return {Array} - Array of validations
+   */
   validateGet() {
     return [
-      _expressValidator.query('source', 'missing valid values. Use "web" to fetch the latest data (but may be slow), or "cache" for fast data, but may be a few days old').exists(),
-      _expressValidator.query('limit').optional().isInt(),
-      _expressValidator.query('orderBy').optional().isIn(['talkCount', 'title'])
-    ]
+      _validator.query('source', 'Valid values include web or cache').exists()];
   }
 }
 

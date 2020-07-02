@@ -9,6 +9,7 @@ const HttpResponse = require('./models/httpResponse');
 class ApiClient {
   /**
    * Represents an ApiClient object
+   * @constructor
    * @param {object} opts - IoC object holding dependencies
    */
   constructor(opts) {

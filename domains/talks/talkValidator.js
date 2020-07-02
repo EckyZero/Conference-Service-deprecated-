@@ -10,7 +10,7 @@ class TalkValidator {
    */
   validateGet() {
     return [
-      _validator.query('source', 'Use "web" or "cache"').exists(),
+      _validator.query('source', 'Valid values include web or cache').exists(),
       _validator.query('limit').optional().isInt(),
       _validator.query('orderBy').optional().isIn(['talkCount', 'title']),
       _validator.query('topic').optional()];

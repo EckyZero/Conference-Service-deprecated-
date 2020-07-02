@@ -9,6 +9,7 @@ const Speaker = require('./models/speaker');
 class SpeakerBuilder extends BaseBuilder {
   /**
    * Represents a SpeakerBuilder object
+   * @constructor
    * @param {object} opts - IoC object holding dependencies
    */
   constructor(opts) {

@@ -7,6 +7,7 @@
 class BaseBuilder {
   /**
    * Represents a BaseBuilder object
+   * @constructor
    * @param {object} opts - IoC object holding dependencies
    */
   constructor(opts) {
