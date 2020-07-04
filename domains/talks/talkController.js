@@ -28,7 +28,7 @@ class TalkController {
     if (!errors.isEmpty()) {
       // TODO: consistent error message format
       res.status(400).json({errors: errors.array()});
-      next();
+      return;
     }
 
     // TODO: add support for limit, orderBy, the "DB" source
@@ -46,11 +46,11 @@ class TalkController {
       // TODO: Wrap response in a consistent object
       const talks = await this.talkService.getTalks(source, topics);
       res.status(200).send(talks);
-      next();
+      return;
     } catch (e) {
       // TODO: Consistent error message format
       res.status(200).send(e.message);
-      next();
+      return;
     }
   }
 }

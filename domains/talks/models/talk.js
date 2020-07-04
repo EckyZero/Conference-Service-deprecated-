@@ -5,12 +5,13 @@
  */
 class Talk {
     title;
-    speaker;
-    session;
-    detailUrl;
-    thumbnailUrl;
     description;
-    sessionOrder
+    quote;
+    sessionOrder;
+    session;
+    speaker;
+    thumbnailUrl;
+    detailUrl;
 }
 
 module.exports = Talk;

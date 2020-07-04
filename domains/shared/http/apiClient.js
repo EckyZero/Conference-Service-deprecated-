@@ -2,6 +2,7 @@
 
 const _needle = require('needle');
 const HttpResponse = require('./models/httpResponse');
+const HttpStatus = require('http-status-codes');
 
 /**
  * Helper class for making HTTP requests
@@ -30,6 +31,14 @@ class ApiClient {
 
       response.isError = false;
       response.results = results ? results.body : body;
+
+      // load the new URL of there's a redirect
+      if ([HttpStatus.MOVED_PERMANENTLY,
+        HttpStatus.MOVED_TEMPORARILY,
+        HttpStatus.PERMANENT_REDIRECT,
+        HttpStatus.TEMPORARY_REDIRECT].includes(results.statusCode)) {
+        return await this.get(results.headers.location);
+      }
     } catch (e) {
       const message = `Http Error - GET - ${url}`;
 

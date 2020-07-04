@@ -1,4 +1,5 @@
 const _routes = require('../../configs/routes.json');
+const _async = require('async');
 const BaseScraper = require('../shared/baseScraper');
 
 /**
@@ -16,6 +17,7 @@ class TalkScraper extends BaseScraper {
     this.talkBuilder = opts.talkBuilder;
     this.objectValidator = opts.objectValidator;
     this.logger = opts.logger;
+    this.timer = opts.timer;
   }
 
   // TODO: Some of the pages have pagination
@@ -31,7 +33,8 @@ class TalkScraper extends BaseScraper {
    */
   async getTalk(topic) {
     const talkUrl = (_routes.BASE_URL + _routes.TALK_PATH).replace('$@', topic);
-    let results = null;
+    let initialResults = [];
+    const detailResults = [];
 
     const $ = await super.loadHtmlContentFromUrl(talkUrl);
 
@@ -39,69 +42,34 @@ class TalkScraper extends BaseScraper {
     if (!this.objectValidator.isValid($)) return null;
 
     // TODO: Try catch with a specific error (parse Error);
-    results = this.talkBuilder.buildMany($);
+    initialResults = this.talkBuilder.buildMany($);
 
-    return results;
+    await _async.forEach(initialResults, async (talk) => {
+      const detailTalk = await this.getTalkDetails(talk);
+      detailResults.push(detailTalk);
+    });
+
+    return detailResults;
   };
 
   /**
    * Retrieve HTML data for the topi detail information and scrape the object
-   * @param {string} topicDetailUrl - URL of the detail page for a topic
+   * @param {Talk} talk - Talk to retrieve additional details for
    */
-  async getTalkDetails(topicDetailUrl) {
-    let results = null;
-    // TODO: Implement
-    try {
-      const siteContent = await needle("get",topicDetailUrl);
-      const $ = cheerio.load(siteContent.body);
+  async getTalkDetails(talk) {
+    // TODO: Add version to the API
+    // TODO: Replace with talk.detailUrl
+    // TODO: Inject /study. after .org for it to work
+    const $ = await super.loadHtmlContentFromUrl(talk.detailUrl);
 
-      const fullName = $('.author-name')[0].firstChild.data;
-      const role = $('.author-role')[0].firstChild.data;
-      const highlight = $('.kicker')[0].firstChild.data.trim();
-      const talkTitle = $('#title1')[0].firstChild.data;
-      let sessionName = '';
-      let sessionOrder = -1;
+    // TODO: Try catch with a specific error (parse Error);
+    // TODO: pagination for longer pages
+    if (!this.objectValidator.isValid($)) return null;
 
-      let sessions = [];
+    const detailTalk = this.talkBuilder.appendDetails($, talk);
 
-      // TODO: Refactor to builder
-      $('li a div p span').each((i, el) => {
-        for (let i = 0; i < el.childNodes.length; i++) {
-          const childNode = el.childNodes[i];
-          const sessionNode = getChildElementsWithText(childNode, 'Session');
-
-          if (sessionNode !== null & sessionNode.length > 0) {
-            sessions.push(sessionNode[0].data);
-            sessionOrder = -1;
-          } else {
-            sessionOrder++;
-          }
-
-          if (childNode.data == talkTitle) {
-            sessionName = sessions[sessions.length - 1];
-            sessionOrder = sessionOrder;
-            break;
-          }
-        }
-        return false;
-      });
-      // Assign to object (i.e. check the name of the field the object is in)
-      // Can probably do that in the mapping
-      console.log(sessions);
-      this.logger.info('test');
-    } catch (e) {
-      this.logger.info(e, `Error Scraping: ${topicDetailUrl}`);
-    }
-
-    // TODO: Refactor to builder
-    return {
-      'fullName': fullName,
-      'highlight': highlight,
-      'role': role,
-      'talkTitle': talkTitle,
-      'sessionName': sessionName,
-      'sessionOrder': sessionOrder};
-  };
+    return detailTalk;
+  }
 }
 
 module.exports = TalkScraper;

@@ -64,6 +64,20 @@ class ObjectValidator {
     }
     return isObject;
   }
+
+  /**
+   * 
+   * @param {*} val 
+   * @param {*} valArray 
+   */
+  arrayIncludesValue(valArray, val) {
+    if (!this.isNumber(val) && !this.isString(val)) return;
+    if (!this.isArray(valArray)) return;
+
+    const includes = valArray.some((el) => new RegExp(el, 'ig').test(val));
+
+    return includes;
+  }
 }
 
 module.exports = ObjectValidator;

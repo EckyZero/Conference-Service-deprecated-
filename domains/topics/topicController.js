@@ -27,7 +27,7 @@ class TopicController {
     if (!errors.isEmpty()) {
       // TODO: Consistent error message format
       res.status(400).json({errors: errors.array()});
-      next();
+      return;
     }
 
     // TODO: implement limit and orderBy
@@ -40,7 +40,7 @@ class TopicController {
     } catch (e) {
       // TODO: Consistent error message format
       res.status(200).send(e.message);
-      next();
+      return;
     }
   }
 }

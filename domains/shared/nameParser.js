@@ -38,9 +38,11 @@ class NameParser {
 
     const names = fullName.split(' ');
 
-    if (names.length < 1) return null;
+    if (names.length < 2) return null;
 
-    const middleName = this.trimName(names[1]);
+    // If we only have a first & last, ignore trying to parse the middle name
+    const name = names.length === 2 ? null : names[1];
+    const middleName = this.trimName(name);
 
     return middleName;
   }
@@ -57,7 +59,9 @@ class NameParser {
 
     if (names.length < 2) return null;
 
-    const lastName = this.trimName(names[2]);
+    // Last name is at a different index if we don't have a middle name
+    const name = names.length === 2 ? names[1] : names[2];
+    const lastName = this.trimName(name);
 
     return lastName;
   }

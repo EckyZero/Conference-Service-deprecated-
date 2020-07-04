@@ -41,34 +41,6 @@ class BaseScraper {
   loadHtmlContent(html) {
     return _cheerio.load(html);
   }
-
-  /**
-   * Recursively search through an element to find an element matching the text
-   * @param {HTMLElement} parentElement - HTML element to start the search
-   * @param {string} textToFind - text content to be searched for
-   * @return {HTMLElement} - Found HTML child element (if matched)
-   */
-  getChildElementsWithText(parentElement, textToFind) {
-    const childElements = [];
-
-    // don't look further if there is no parent
-    if (parentElement == null) return childElements;
-    // don't look further if there is no parent
-    if (parentElement.data == null) return childElements;
-    // successful match
-    if (parentElement.data.includes(textToFind)) return [parentElement];
-    // check safety of children before recursevly looking further
-    if (parentElement.childNodes == null ||
-        parentElement.childNodes.length == 0) return childElements;
-
-    for (let i = 0; i < parentElement.childNodes.length; i++) {
-      const childElement = this.getChildElementsWithText(textToFind);
-      if (childElement != null) {
-        childElements.push(childElements);
-      }
-    }
-    return childElements;
-  };
 }
 
 module.exports = BaseScraper;

@@ -23,7 +23,8 @@
     "convict": "~6.0.0",
     "sinon": "~9.0.2",
     "nyc": "~15.1.0",
-    "express-validator": "~6.6.0"
+    "express-validator": "~6.6.0",
+    "http-status-codes": "~1.4.0"
   },
   "devDependencies": {
     "babel-eslint": "^10.1.0",
