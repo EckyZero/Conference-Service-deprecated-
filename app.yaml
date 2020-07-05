@@ -9,7 +9,7 @@ inbound_services:
 - warmup
 
 handlers:
-- url: /1.0.0
+- url: /1.0.0/.*
   secure: always
   redirect_http_response_code: 301
   script: auto
