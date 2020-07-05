@@ -20,7 +20,7 @@ _app.use(_express.static(_path.join(__dirname, 'public')));
 _app.get('/_ah/warmup', (req, res) => res.status(200).send());
 
 // Setup routes for other deployments
-_app.use('1.0.0/topics', topicRouter);
-_app.use('1.0.0/talks', talkRouter);
+_app.use('/topics', topicRouter);
+_app.use('/talks', talkRouter);
 
 module.exports = _app;
