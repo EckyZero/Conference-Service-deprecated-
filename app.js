@@ -22,5 +22,6 @@ _app.get('/_ah/warmup', (req, res) => res.status(200).send());
 // Setup routes for other deployments
 _app.use('/topics', topicRouter);
 _app.use('/talks', talkRouter);
+_app.use('/privacy', _express.static('domains/static/privacy'));
 
 module.exports = _app;
