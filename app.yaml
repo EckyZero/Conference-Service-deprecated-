@@ -5,9 +5,6 @@ automatic_scaling:
   max_instances: 4
   target_cpu_utilization: 0.7
 
-inbound_services:
-- warmup
-
 handlers:
   - url: /static
     static_dir: public
