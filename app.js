@@ -16,7 +16,11 @@ _app.use(_express.urlencoded({extended: false}));
 _app.use(_cookieParser());
 _app.use(_express.static(_path.join(__dirname, 'public')));
 
-_app.use('/topics', topicRouter);
-_app.use('/talks', talkRouter);
+// Support warm up requests for reduced latency after deployment
+_app.get('/_ah/warmup', (req, res) => res.status(200).send());
+
+// Setup routes for other deployments
+_app.use('1.0.0/topics', topicRouter);
+_app.use('1.0.0/talks', talkRouter);
 
 module.exports = _app;

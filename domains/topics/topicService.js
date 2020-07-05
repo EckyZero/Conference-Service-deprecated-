@@ -21,7 +21,7 @@ class TopicService {
   async getAllTopics(source) {
     // TODO: Add additional db source once ready (leverage source)
     // TODO: Move hard-coded strings to constants file
-    const topics = topics = await this._getAllTopicsFromWeb();
+    const topics = await this._getAllTopicsFromWeb();
 
     return topics;
   };

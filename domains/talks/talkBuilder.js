@@ -3,7 +3,6 @@
 const _routes = require('../../configs/routes.json');
 const BaseBuilder = require('../shared/baseBuilder');
 const Talk = require('./models/talk');
-const { match } = require('sinon');
 
 const _elderCallings = ['apostle', 'seventy'];
 const _brotherCallings = ['school', 'young men'];
