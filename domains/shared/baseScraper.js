@@ -1,7 +1,7 @@
 'use strict';
 
 const _cheerio = require('cheerio');
-const HttpResponse = require('./http/models/httpResponse')
+const HttpResponse = require('./http/models/httpResponse');
 
 /**
  * Base class responsible for core functionality for parsing HTML data

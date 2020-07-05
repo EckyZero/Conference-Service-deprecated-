@@ -4,10 +4,10 @@
  * Response object for HTTP requests
  */
 class HttpResponse {
-    isError;
-    message;
-    exception;
-    results;
+    isError
+    message
+    exception
+    results
 }
 
 module.exports = HttpResponse;
