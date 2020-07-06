@@ -6,8 +6,8 @@ automatic_scaling:
   target_cpu_utilization: 0.7
 
 handlers:
-- url: /static
-  static_dir: public
+- url: /privacy
+  static_dir: public/privacy
 
 - url: /.*
   secure: always
