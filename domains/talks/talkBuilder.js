@@ -4,6 +4,7 @@ const _routes = require('../../configs/routes.json');
 const BaseBuilder = require('../shared/baseBuilder');
 const Talk = require('./models/talk');
 
+
 const _elderCallings = ['apostle', 'seventy'];
 const _brotherCallings = ['school', 'young men'];
 const _sisterCallings = ['young women', 'relief', 'primary'];
