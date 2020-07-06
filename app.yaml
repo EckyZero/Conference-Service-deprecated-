@@ -1,8 +1,8 @@
-runtime: nodejs10
+runtime: nodejs12
 env: standard
 
 automatic_scaling:
-  max_instances: 4
+  max_instances: 2
   target_cpu_utilization: 0.7
 
 handlers:
