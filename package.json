@@ -3,8 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node app.js",
-    "test": "mocha --file test/**/*.js"
+    "start": "node app.js"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
@@ -27,7 +26,6 @@
     "chai": "^4.2.0",
     "eslint": "^7.3.1",
     "eslint-config-google": "^0.14.0",
-    "mocha": "^8.0.1",
     "convict": "~6.0.0",
     "sinon": "~9.0.2"
   }
