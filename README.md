@@ -9,7 +9,7 @@ A series of open REST APIs that serves topics, talks, and speaker information re
 3. Make a request with base URL [https://api.conference.wardbook.com/{version}/{domain}](https://api.conference.wardbook.com/{version}/{domain}) where {version} and {domain} specified below
 
 ## Services
-See below for a description of how to user the service. If desired, you can also reference the Swagger [here](https://github.com/EckyZero/Talk-Service-Infra/blob/dev/swagger.yaml)
+See below for a description of how to user the service. If desired, you can also reference the Swagger [here](https://github.com/EckyZero/Conference-Service-Infra/blob/dev/swagger.yaml)
 
 ### /Topics
 
