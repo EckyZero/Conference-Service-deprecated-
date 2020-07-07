@@ -68,7 +68,7 @@ curl https://api.conference.wardbook.com/1.0.0/topics?source=web
 
 ```bash
 # Simple HTTP GET Request
-curl https://api.conference.wardbook.com/1.0.0/talks?source=web&topic=faith
+curl https://api.conference.wardbook.com/1.0.0/talks?source=web&topic=aaronic-priesthood
 
 # Response is an array of "topics"
 ## The "tag" element can be used to query the /talk domain for talks relative to this topic
