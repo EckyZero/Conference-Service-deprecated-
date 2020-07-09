@@ -23,14 +23,12 @@ class TopicController {
   async get(req, res) {
     const errors = _validator.validationResult(req);
 
-    // TODO: only support 'GET' metthod - error if not
     if (!errors.isEmpty()) {
       // TODO: Consistent error message format
       res.status(400).json({errors: errors.array()});
       return;
     }
 
-    // TODO: implement limit and orderBy
     const {source} = req.query;
 
     try {

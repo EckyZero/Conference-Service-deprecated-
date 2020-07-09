@@ -3,8 +3,6 @@
 const _expect = require('chai').expect;
 const DateParser = require('../../domains/shared/dateParser');
 
-// TODO: More unit tests in general
-
 describe('DateParser', function() {
   describe('monthStringToInt', function() {
     it('should find and and convert every valid month', function() {

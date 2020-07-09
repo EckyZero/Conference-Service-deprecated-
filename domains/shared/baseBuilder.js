@@ -41,14 +41,16 @@ class BaseBuilder {
     const childElements = [];
 
     // don't look further if there is no parent
-    if (parentElement == null) return childElements;
+    if (!this.objectValidator.isValid(parentElement)) return childElements;
     // don't look further if there is no parent
-    if (parentElement.data == null) return childElements;
+    if (!this.objectValidator.isValid(parentElement.data)) return childElements;
+
     // successful match
     if (parentElement.data.includes(textToFind)) return [parentElement];
+
     // check safety of children before recursevly looking further
-    if (parentElement.childNodes == null ||
-        parentElement.childNodes.length == 0) return childElements;
+    if (parentElement.childNodes === null ||
+        parentElement.childNodes.length === 0) return childElements;
 
     for (let i = 0; i < parentElement.childNodes.length; i++) {
       const childElement = this.getChildElementsWithText(textToFind);
@@ -60,9 +62,12 @@ class BaseBuilder {
   }
 
   /**
-   * 
-   * @param {*} node 
-   * @return {string} - 
+   * Attempt multiple times with different selectors to get data
+   * Depending on the age of the page the site used different selectors
+   * @param {jQuery} $ - Parser used to inspect the element
+   * @param {string} firstKey - first selector to query by
+   * @param {string} secondKey - backup selector to query by
+   * @return {string} - data for element
    */
   tryGetChildDataWithSelectors($, firstKey, secondKey) {
     let data;
@@ -85,12 +90,6 @@ class BaseBuilder {
     }
     return data;
   }
-
-  tryGetChildAttribswithKey($, key) {
-
-  }
-
-  
 }
 
 module.exports = BaseBuilder;

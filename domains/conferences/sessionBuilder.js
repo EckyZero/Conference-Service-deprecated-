@@ -32,21 +32,21 @@ class SessionBuilder extends BaseBuilder {
   }
 
   /**
-   * 
-   * @param {*} $ 
-   * @param {*} el 
-   * @return {object}
+   * Get more conference details (SessionName, SessionOrder, ConferenceOrder)
+   * @param {jQuery} $ - Parser used to inspect the element
+   * @param {string} talkTitle - used for finding it's order in a session
+   * @return {object} - object containing additiona meta-data about a conference
    */
   buildConferenceDetails($, talkTitle) {
     let sessionName = '';
     let sessionOrder = -1;
 
-    let sessions = [];
+    const sessions = [];
 
     $('li a div p span').each((i, el) => {
       for (let i = 0; i < el.childNodes.length; i++) {
-        const childNode = el.childNodes[i];
-        const sessionNode = super.getChildElementsWithText(childNode, 'Session');
+        const child = el.childNodes[i];
+        const sessionNode = super.getChildElementsWithText(child, 'Session');
 
         if (sessionNode !== null & sessionNode.length > 0) {
           sessions.push(sessionNode[0].data);
@@ -54,8 +54,7 @@ class SessionBuilder extends BaseBuilder {
         } else {
           sessionOrder++;
         }
-        // TODO: Session Order is wrong
-        if (childNode.data == talkTitle) {
+        if (child.data === talkTitle) {
           sessionName = sessions[sessions.length - 1];
           sessionOrder = sessionOrder;
           return false;

@@ -20,13 +20,6 @@ class TalkScraper extends BaseScraper {
     this.timer = opts.timer;
   }
 
-  // TODO: Some of the pages have pagination
-  // need to figure out how to handle that
-  // TODO: Or bbetter yet, figure out how to paginate myself
-  // TODO: Document endpoint
-  // (ex: Tithing)
-  // TODO: in general, add better logging
-
   /**
    * Retrieve HTML data for the topic and scrape for the object
    * @param {Array} topic - string topics of interest
@@ -57,13 +50,9 @@ class TalkScraper extends BaseScraper {
    * @param {Talk} talk - Talk to retrieve additional details for
    */
   async getTalkDetails(talk) {
-    // TODO: Add version to the API
-    // TODO: Replace with talk.detailUrl
-    // TODO: Inject /study. after .org for it to work
     const $ = await super.loadHtmlContentFromUrl(talk.detailUrl);
 
     // TODO: Try catch with a specific error (parse Error);
-    // TODO: pagination for longer pages
     if (!this.objectValidator.isValid($)) return null;
 
     const detailTalk = this.talkBuilder.appendDetails($, talk);

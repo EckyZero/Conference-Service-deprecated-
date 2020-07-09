@@ -26,7 +26,6 @@ class TalkService {
   async getTalks(source, topics) {
     let talks = [];
 
-    // TODO: search for all == vs. ===
     if (this.objectValidator.isValid(topics) && topics.length > 0) {
       talks = await this.getTalksByTopics(topics);
     } else {
@@ -54,8 +53,6 @@ class TalkService {
   async getTalksByTopics(topics) {
     let talks = [];
 
-    // TODO: Add additional db source once ready
-    // TODO: consolidate this and the similar forEach logic in the above
     await _async.forEach(topics, async (topic) => {
       const topicTalks = await this.getTalksByTopic(topic);
       if (this.objectValidator.isValid(topicTalks)) {
@@ -77,8 +74,6 @@ class TalkService {
 
     await _async.forEach(topics, async (topic) => {
       const topicTalks = await this.getTalksByTopic(topic.tag);
-
-      // TODO: Consider how the response can better indicate this result
       // TODO: Add a "response" object that holds the response,
       // with metadata about the request at the top level
       if (this.objectValidator.isValid(topicTalks)) {

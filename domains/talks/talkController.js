@@ -24,15 +24,12 @@ class TalkController {
   async get(req, res) {
     const errors = _validator.validationResult(req);
 
-    // TODO: only support 'GET' metthod - error if not
     if (!errors.isEmpty()) {
       // TODO: consistent error message format
       res.status(400).json({errors: errors.array()});
       return;
     }
 
-    // TODO: add support for limit, orderBy, the "DB" source
-    // and merge, union, or distinct with topics
     const {source, topic} = req.query;
     let topics = [];
 

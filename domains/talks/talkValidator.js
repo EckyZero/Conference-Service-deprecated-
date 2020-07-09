@@ -1,5 +1,5 @@
 const _validator = require('express-validator');
-// TODO: Add localization?
+
 /**
  * Responsible for validating talk queries
  */

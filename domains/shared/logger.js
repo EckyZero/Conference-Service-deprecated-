@@ -1,8 +1,8 @@
 'use strict';
 
-// TODO: Get name from a config file
 const _bunyan = require('bunyan');
-const _logger = _bunyan.createLogger({name: 'talk-service'});
+const _constants = require('../../configs/constants.json');
+const _logger = _bunyan.createLogger({name: _constants.APP_NAME});
 
 /**
  * Responsible for Logging

@@ -1,4 +1,5 @@
 {
+    "APP_NAME": "talk-service",
     "VERSION": "1.0.0",
     "ENV": "env",
     "TALK_CONTROLLER": "talkController",

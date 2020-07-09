@@ -66,9 +66,10 @@ class ObjectValidator {
   }
 
   /**
-   * 
-   * @param {*} val 
-   * @param {*} valArray 
+   * Do any values in the array match the passed in value?
+   * @param {*} valArray - array to search
+   * @param {*} val  - value to find in the array
+   * @return {boolean} - true/false depending on if the value was found
    */
   arrayIncludesValue(valArray, val) {
     if (!this.isNumber(val) && !this.isString(val)) return;

@@ -45,23 +45,24 @@ class TalkBuilder extends BaseBuilder {
   }
 
   /**
-   * 
-   * @param {*} $ 
-   * @param {*} el 
+   * Append more information about the speaker and session to the talk
+   * @param {jQuery} $ - Parser used to inspect the element
+   * @param {Talk} talk - The talk to be appended to
+   * @return {Talk} - original talk appended with more speaker and session indo
    */
   appendDetails($, talk) {
-    const confDetails = this.sessionBuilder.buildConferenceDetails($, talk.title);
+    const conf = this.sessionBuilder.buildConferenceDetails($, talk.title);
 
-    talk.session.name = confDetails.sessionName;
-    talk.sessionOrder = confDetails.sessionOrder;
-    talk.session.conferenceOrder = confDetails.conferenceOrder;
+    talk.session.name = conf.sessionName;
+    talk.sessionOrder = conf.sessionOrder;
+    talk.session.conferenceOrder = conf.conferenceOrder;
 
     talk.description = this._description($);
     talk.quote = this._quote($);
     talk.thumbnailUrl = this._thumbnail($);
     talk.speaker.role = this._role($);
     talk.speaker.title = this._speakerTitle($);
-    
+
     return talk;
   }
 
@@ -136,10 +137,9 @@ class TalkBuilder extends BaseBuilder {
   }
 
   /**
-   * TODO
-   * @param {*} $ 
-   * @param {*} el 
-   * @return {string} - 
+   * Get the calling of the speaker (ex: Young Men's General President, etc.)
+   * @param {jQuery} $ - Parser used to inspect the element
+   * @return {string} - the role of speaker
    */
   _role($) {
     let role = $('.author-role')[0] ?
@@ -152,10 +152,10 @@ class TalkBuilder extends BaseBuilder {
   }
 
   /**
-   * 
-   * @param {*} $ 
-   * @param {*} el 
-   * @return {string}
+   * Get a highlighted quote from the talk
+   * @param {jQuery} $ - Parser used to inspect the element
+   * @param {HTMLElement} el - the target HTMLElement to parse
+   * @return {string} - a quote from the talk
    */
   _quote($) {
     return $('.kicker')[0] ?
@@ -163,20 +163,20 @@ class TalkBuilder extends BaseBuilder {
   }
 
   /**
-   * 
-   * @param {*} $ 
-   * @param {*} el 
-   * @return {string}
+   * Get a short summary of the talk's contents
+   * @param {jQuery} $ - Parser used to inspect the element
+   * @param {HTMLElement} el - the target HTMLElement to parse
+   * @return {string} - short summary of the talk
    */
   _description($) {
     return $('head > meta:nth-child(6)')[0].attribs.content;
   }
 
   /**
-   * 
-   * @param {*} $ 
-   * @param {*} el 
-   * @return {string}
+   * Get the speaker' title (Brother, Sister, etc.)
+   * @param {jQuery} $ - Parser used to inspect the element
+   * @param {HTMLElement} el - the target HTMLElement to parse
+   * @return {string} - the title of the speaker
    */
   _speakerTitle($) {
     let title;
@@ -184,7 +184,6 @@ class TalkBuilder extends BaseBuilder {
     const role = this._role($);
     const name = super.tryGetChildDataWithSelectors($, '.author-name', '#p1');
 
-    // TODO: Can we simplify this logic?
     // If we know the name, parse for the appropriate title
     if (this.objectValidator.isString(name)) {
       const nameElements = name.split(' ');
