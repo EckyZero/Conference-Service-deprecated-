@@ -33,22 +33,28 @@ curl https://api.conference.wardbook.com/1.0.0/topics?source=web
 
 # Response is an array of "topics"
 ## The "tag" element can be used to query the /talk domain for talks relative to this topic
-[{
-    "title": "Aaronic Priesthood",
-    "tag": "aaronic-priesthood",
-    "talksUrl": "https://www.churchofjesuschrist.org/general-conference/topics/Aaronic-Priesthood?lang=eng&encoded=true",
-    "talksCount": 10
-}, {
-    "title": "adversity",
-    "tag": "adversity",
-    "talksUrl": "https://www.churchofjesuschrist.org/general-conference/topics/adversity?lang=eng",
-    "talksCount": 270
-}, {
-    "title": "Atonement",
-    "tag": "atonement",
-    "talksUrl": "https://www.churchofjesuschrist.org/general-conference/topics/Atonement?lang=eng",
-    "talksCount": 262
-}, ...]
+{
+    "isError": false,
+    "errorMessage": null,
+    "count": 249,
+    "results": [{
+        "title": "Aaronic Priesthood",
+        "tag": "aaronic-priesthood",
+        "talksUrl": "https://www.churchofjesuschrist.org/general-conference/topics/Aaronic-Priesthood?lang=eng&encoded=true",
+        "talksCount": 10
+    }, {
+        "title": "adversity",
+        "tag": "adversity",
+        "talksUrl": "https://www.churchofjesuschrist.org/general-conference/topics/adversity?lang=eng",
+        "talksCount": 270
+    }, {
+        "title": "Atonement",
+        "tag": "atonement",
+        "talksUrl": "https://www.churchofjesuschrist.org/general-conference/topics/Atonement?lang=eng",
+        "talksCount": 262
+    }, ...]
+}
+
 ```
 
 ### /Talks
@@ -72,8 +78,11 @@ curl https://api.conference.wardbook.com/1.0.0/talks?source=web&topic=aaronic-pr
 
 # Response is an array of "topics"
 ## The "tag" element can be used to query the /talk domain for talks relative to this topic
-[
-  {
+{
+    "isError": false,
+    "errorMessage": null,
+    "count": 249,
+    "results": {
     "title": "What Every Aaronic Priesthood Holder Needs to Understand",
     "description": "Brother Holmes teaches that Aaronic Priesthood holders have an important role in helping others to receive the Savior’s atoning power in their lives.",
     "quote": "Your Aaronic Priesthood ordination is central to helping God’s children receive Christ’s atoning power.",
@@ -97,6 +106,7 @@ curl https://api.conference.wardbook.com/1.0.0/talks?source=web&topic=aaronic-pr
     "thumbnailUrl": "https://mediasrv.churchofjesuschrist.org/media-services/GC/thumbnail/5761611624001",
     "detailUrl": "https://www.churchofjesuschrist.org/general-conference/2018/04/what-every-aaronic-priesthood-holder-needs-to-understand?lang=eng"
   },...]
+}
 ```
 
 ## Contributing
