@@ -27,7 +27,6 @@ class TopicScraper extends BaseScraper {
   async getAllTopics() {
     const $ = await super.loadHtmlContentFromUrl(_topicsUrl);
 
-    // TODO: better error handling
     if (!this.objectValidator.isValid($)) return null;
 
     let results = [];

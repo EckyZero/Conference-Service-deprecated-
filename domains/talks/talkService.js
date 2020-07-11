@@ -74,8 +74,7 @@ class TalkService {
 
     await _async.forEach(topics, async (topic) => {
       const topicTalks = await this.getTalksByTopic(topic.tag);
-      // TODO: Add a "response" object that holds the response,
-      // with metadata about the request at the top level
+
       if (this.objectValidator.isValid(topicTalks)) {
         talks = talks.concat(topicTalks);
       }

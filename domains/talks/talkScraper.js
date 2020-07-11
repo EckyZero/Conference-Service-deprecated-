@@ -31,10 +31,8 @@ class TalkScraper extends BaseScraper {
 
     const $ = await super.loadHtmlContentFromUrl(talkUrl);
 
-    // TODO: Try catch with a specific error (parse Error);
     if (!this.objectValidator.isValid($)) return null;
 
-    // TODO: Try catch with a specific error (parse Error);
     initialResults = this.talkBuilder.buildMany($);
 
     await _async.forEach(initialResults, async (talk) => {
@@ -52,7 +50,6 @@ class TalkScraper extends BaseScraper {
   async getTalkDetails(talk) {
     const $ = await super.loadHtmlContentFromUrl(talk.detailUrl);
 
-    // TODO: Try catch with a specific error (parse Error);
     if (!this.objectValidator.isValid($)) return null;
 
     const detailTalk = this.talkBuilder.appendDetails($, talk);

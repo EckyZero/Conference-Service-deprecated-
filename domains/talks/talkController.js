@@ -1,6 +1,7 @@
 'use strict';
 
 const _validator = require('express-validator');
+const ServiceResponse = require('../shared/serviceResponse');
 
 /**
  * Responsible for validating Talk request inputs and formatting responses
@@ -14,6 +15,7 @@ class TalkController {
   constructor(opts) {
     this.talkService = opts.talkService;
     this.objectValidator = opts.objectValidator;
+    this.logger = opts.logger;
   }
 
   /**
@@ -25,7 +27,6 @@ class TalkController {
     const errors = _validator.validationResult(req);
 
     if (!errors.isEmpty()) {
-      // TODO: consistent error message format
       res.status(400).json({errors: errors.array()});
       return;
     }
@@ -33,6 +34,7 @@ class TalkController {
     const {source, topic} = req.query;
     let topics = [];
 
+    // Support for multiple topics
     if (this.objectValidator.isArray(topic)) {
       topics = topic;
     } else if (this.objectValidator.isString(topic)) {
@@ -40,13 +42,26 @@ class TalkController {
     }
 
     try {
-      // TODO: Wrap response in a consistent object
       const talks = await this.talkService.getTalks(source, topics);
-      res.status(200).send(talks);
+      const response = new ServiceResponse();
+
+      response.isError = false;
+      response.count = talks.length;
+      response.results = talks;
+
+      res.status(200).send(response);
+
       return;
     } catch (e) {
-      // TODO: Consistent error message format
-      res.status(200).send(e.message);
+      this.logger.warn(e, '/talks failed');
+      const response = new ServiceResponse();
+
+      response.isError = true;
+      response.error = `Request completed with error: ${e.message}`;
+      response.count = 0;
+      response.results = [];
+
+      res.status(500).send(response);
       return;
     }
   }

@@ -3,6 +3,7 @@
 const _routes = require('../../configs/routes.json');
 const BaseBuilder = require('../shared/baseBuilder');
 const Talk = require('./models/talk');
+const Speaker = require('../speakers/models/speaker');
 
 
 const _elderCallings = ['apostle', 'seventy'];
@@ -196,19 +197,18 @@ class TalkBuilder extends BaseBuilder {
       }
     }
 
-    // TODO: config file for hard-coded values
     // If we still don't know the title, parse the role for organizations
     if (this.objectValidator.isString(role)) {
       if (this.objectValidator.arrayIncludesValue(_brotherCallings, role)) {
-        title = 'Brother';
+        title = Speaker.TITLES.BROTHER;
         return title;
       // eslint-disable-next-line max-len
       } else if (this.objectValidator.arrayIncludesValue(_sisterCallings, role)) {
-        title = 'Sister';
+        title = Speaker.TITLES.SISTER;
         return title;
       // eslint-disable-next-line max-len
       } else if (this.objectValidator.arrayIncludesValue(_elderCallings, role)) {
-        title = 'Elder';
+        title = Speaker.TITLES.ELDER;
         return title;
       }
 
