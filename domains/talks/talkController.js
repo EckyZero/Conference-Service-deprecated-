@@ -57,7 +57,7 @@ class TalkController {
       const response = new ServiceResponse();
 
       response.isError = true;
-      response.error = `Request completed with error: ${e.message}`;
+      response.errorMessage = `Request completed with error: ${e.message}`;
       response.count = 0;
       response.results = [];
 
