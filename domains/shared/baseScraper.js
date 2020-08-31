@@ -10,7 +10,7 @@ class BaseScraper {
   /**
    * Represents a BaseScraper object
    * @constructor
-   * @param {*} opts - IoC object holding dependencies
+   * @param {object} opts - IoC object holding dependencies
    */
   constructor(opts) {
     this.apiClient = opts.apiClient;
