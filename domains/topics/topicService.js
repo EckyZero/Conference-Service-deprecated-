@@ -1,5 +1,7 @@
 'use strict';
 
+const CONSTANTS = require('../../configs/constants.json');
+
 /**
  * Responsible for core business logic relating to Topics
  */
@@ -11,6 +13,8 @@ class TopicService {
   */
   constructor(opts) {
     this.topicScraper = opts.topicScraper;
+    this.topicDatabase = opts.topicDatabase;
+    this.logger = opts.logger;
   }
 
   /**
@@ -19,17 +23,38 @@ class TopicService {
    * @return {Array} - a list of Topics
    */
   async getAllTopics(source) {
-    const topics = await this._getAllTopicsFromWeb();
+    let topics;
 
+    switch (source) {
+      case CONSTANTS.SOURCE.WEB:
+        topics = await this.topicScraper.getAllTopics();
+        break;
+      case CONSTANTS.SOURCE.CACHE:
+        topics = await this.topicDatabase.getAllTopics();
+        break;
+      default:
+        topics = await this.topicScraper.getAllTopics();
+        break;
+    }
     return topics;
   };
 
   /**
-   * Get all topics from the web
+   * Sync topics from the web to the database
    */
-  async _getAllTopicsFromWeb() {
-    const topics = await this.topicScraper.getAllTopics();
-    return topics;
+  async syncAllTopics() {
+    try {
+      // Get latest topics from the web
+      const topics = await this.topicScraper.getAllTopics();
+      // Ensure table is created
+      await this.topicDatabase.ensureTableExists();
+      // insert new topics,
+      // only adding if records matching the tag don't already exist
+      await this.topicDatabase.upsertAll(topics, 'tag');
+    } catch (error) {
+      this.logger(err);
+      throw err;
+    }
   }
 }
 

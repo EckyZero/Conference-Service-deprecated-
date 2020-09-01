@@ -14,12 +14,13 @@ class TopicController {
    */
   constructor(opts) {
     this.topicService = opts.topicService;
+    this.logger = opts.logger;
   }
 
   /**
    * Get Topics
-   * @param {*} req - the http request object
-   * @param {*} res - the http response object
+   * @param {object} req - the http request object
+   * @param {object} res - the http response object
    */
   async get(req, res) {
     const errors = _validator.validationResult(req);
@@ -42,7 +43,7 @@ class TopicController {
 
       res.status(200).send(response);
     } catch (e) {
-      this.logger.warn(e, '/topics failed');
+      this.logger.warn(e, 'GET /topics failed');
       const response = new ServiceResponse();
 
       response.isError = true;
@@ -52,6 +53,26 @@ class TopicController {
 
       res.status(500).send(response);
       return;
+    }
+  }
+
+  /**
+   * Sync data from the website to the app's database
+   * @param {object} req - the http request object
+   * @param {object} res - the http response object
+   */
+  async post(req, res) {
+    try {
+      await this.topicService.syncAllTopics();
+      res.status(201).send();
+    } catch (e) {
+      this.logger.warn(e, 'POST /topics failed');
+      const response = new ServiceResponse();
+      
+      response.isError = true;
+      response.errorMessage = `Request completed with error: ${e.message}`;
+
+      res.status(500).send(response);
     }
   }
 }

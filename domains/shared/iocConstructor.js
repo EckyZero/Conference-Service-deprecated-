@@ -10,6 +10,7 @@ const TopicController = require('../topics/topicController');
 const TopicService = require('../topics/topicService');
 const TopicScraper = require('../topics/topicScraper');
 const TopicBuilder = require('../topics/topicBuilder');
+const TopicDatabase = require('../topics/topicDatabase');
 const SessionBuilder = require('../conferences/sessionBuilder');
 const ConferenceBuilder = require('../conferences/conferenceBuilder');
 const SpeakerBuilder = require('../speakers/speakerBuilder');
@@ -47,6 +48,7 @@ class IocConstructor {
       topicService: asClass(TopicService),
       topicScraper: asClass(TopicScraper),
       topicBuilder: asClass(TopicBuilder),
+      topicDatabase: asClass(TopicDatabase),
       sessionBuilder: asClass(SessionBuilder),
       conferenceBuilder: asClass(ConferenceBuilder),
       speakerBuilder: asClass(SpeakerBuilder),

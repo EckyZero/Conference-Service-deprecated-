@@ -5,5 +5,9 @@
     "TALK_CONTROLLER": "talkController",
     "TOPIC_CONTROLLER": "topicController",
     "TOPIC_VALIDATOR": "topicValidator",
-    "TALK_VALIDATOR": "talkValidator"
+    "TALK_VALIDATOR": "talkValidator",
+    "SOURCE": {
+      "WEB": "web",
+      "CACHE": "cache"
+    }
 }

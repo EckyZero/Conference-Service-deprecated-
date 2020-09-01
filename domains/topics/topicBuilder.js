@@ -29,8 +29,7 @@ class TopicBuilder extends BaseBuilder {
 
     topic.title = this._title($, el);
     topic.tag = this._tag($, el);
-    topic.talksUrl = this._talksUrl($, el);
-    topic.talksCount = this._count($, el);
+    topic.talks_url = this._talksUrl($, el);
 
     return topic;
   }
@@ -59,17 +58,6 @@ class TopicBuilder extends BaseBuilder {
   _title($, el) {
     const topicCounts = el.firstChild.data.split('(');
     return topicCounts[0].trim();
-  }
-
-  /**
-   * Parse the count of general conference talks on the topic
-   * @param {jQuery} $ - Parser used to inspect the element
-   * @param {HTMLElement} el - the target HTMLElement to parse
-   * @return {number} - number of conference talks on the topic
-   */
-  _count($, el) {
-    const topicCounts = el.firstChild.data.split('(');
-    return topicCounts[1] ? parseInt(topicCounts[1].trim().slice(0, -1)) : null;
   }
 
   /**

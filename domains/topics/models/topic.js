@@ -6,8 +6,7 @@
 class Topic {
     title;
     tag;
-    talksUrl;
-    talksCount;
+    talks_url;
 }
 
 module.exports = Topic;

@@ -40,18 +40,15 @@ curl https://api.conference.wardbook.com/1.0.0/topics?source=web
     "results": [{
         "title": "Aaronic Priesthood",
         "tag": "aaronic-priesthood",
-        "talksUrl": "https://www.churchofjesuschrist.org/general-conference/topics/Aaronic-Priesthood?lang=eng&encoded=true",
-        "talksCount": 10
+        "talks_url": "https://www.churchofjesuschrist.org/general-conference/topics/Aaronic-Priesthood?lang=eng&encoded=true",
     }, {
         "title": "adversity",
         "tag": "adversity",
-        "talksUrl": "https://www.churchofjesuschrist.org/general-conference/topics/adversity?lang=eng",
-        "talksCount": 270
+        "talks_url": "https://www.churchofjesuschrist.org/general-conference/topics/adversity?lang=eng",
     }, {
         "title": "Atonement",
         "tag": "atonement",
-        "talksUrl": "https://www.churchofjesuschrist.org/general-conference/topics/Atonement?lang=eng",
-        "talksCount": 262
+        "talks_url": "https://www.churchofjesuschrist.org/general-conference/topics/Atonement?lang=eng",
     }, ...]
 }
 
