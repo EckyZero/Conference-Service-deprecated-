@@ -224,6 +224,20 @@ class TalkBuilder extends BaseBuilder {
     }
     return title;
   }
+
+  /**
+   * Get references to paginated values
+   * @param {jQuery} $ - Parser used to inspect the element
+   * @return {Array} - list of relative path urls for paginated resources
+   */
+  _pages($) {
+    const selector = 'body > div > section > nav > ul > li:nth-child(n) > a';
+    const attributes = $(selector).map((i, el) => el.attribs.href);
+    const pagesRef = Object.values(attributes).filter((el) => typeof el === 'string');
+    const pages = [...new Set(pagesRef)];
+
+    return pages;
+  }
 }
 
 module.exports = TalkBuilder;
