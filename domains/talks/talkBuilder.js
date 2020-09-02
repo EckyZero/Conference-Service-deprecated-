@@ -3,7 +3,7 @@
 const _routes = require('../../configs/routes.json');
 const BaseBuilder = require('../shared/baseBuilder');
 const Talk = require('./models/talk');
-const Speaker = require('../speakers/models/speaker');
+const Calling = require('../callings/models/calling');
 
 
 const _elderCallings = ['apostle', 'seventy'];
@@ -61,8 +61,8 @@ class TalkBuilder extends BaseBuilder {
     talk.description = this._description($);
     talk.quote = this._quote($);
     talk.thumbnailUrl = this._thumbnail($);
-    talk.speaker.role = this._role($);
-    talk.speaker.title = this._speakerTitle($);
+    talk.speaker.calling.role = this._role($);
+    talk.speaker.calling.title = this._speakerTitle($);
 
     return talk;
   }
@@ -200,15 +200,15 @@ class TalkBuilder extends BaseBuilder {
     // If we still don't know the title, parse the role for organizations
     if (this.objectValidator.isString(role)) {
       if (this.objectValidator.arrayIncludesValue(_brotherCallings, role)) {
-        title = Speaker.TITLES.BROTHER;
+        title = Calling.TITLES.BROTHER;
         return title;
       // eslint-disable-next-line max-len
       } else if (this.objectValidator.arrayIncludesValue(_sisterCallings, role)) {
-        title = Speaker.TITLES.SISTER;
+        title = Calling.TITLES.SISTER;
         return title;
       // eslint-disable-next-line max-len
       } else if (this.objectValidator.arrayIncludesValue(_elderCallings, role)) {
-        title = Speaker.TITLES.ELDER;
+        title = Calling.TITLES.ELDER;
         return title;
       }
 

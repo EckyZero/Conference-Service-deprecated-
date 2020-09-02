@@ -1,9 +1,11 @@
 'use strict';
 
+const BaseModel = require('../../shared/baseModel');
+
 /**
  * The Talk object given at a conference
  */
-class Talk {
+class Talk extends BaseModel {
     title;
     description;
     quote;
@@ -12,6 +14,14 @@ class Talk {
     speaker;
     thumbnailUrl;
     detailUrl;
+
+    /**
+     * Initialize an instance of a Talk
+     * @constructor
+     */
+    constructor() {
+      super();
+    }
 }
 
 module.exports = Talk;

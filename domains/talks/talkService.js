@@ -1,17 +1,19 @@
 'use strict';
 
 const _async = require('async');
+const BaseService = require('../shared/baseService');
 
 /**
  * Responsible for core business logic relating to Talks
  */
-class TalkService {
+class TalkService extends BaseService {
   /**
    * Represents a TalkService object
    * @constructor
    * @param {object} opts - IoC object holding dependencies
    */
   constructor(opts) {
+    super(opts);
     this.topicService = opts.topicService;
     this.talkScraper = opts.talkScraper;
     this.objectValidator = opts.objectValidator;

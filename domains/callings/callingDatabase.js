@@ -3,35 +3,24 @@
 const BaseDatabase = require('../shared/baseDatabase');
 
 /**
- * Responsible for database operations for the Topic domain
+ * Responsible for database operations for the Calling domain
  */
-class TopicDatabase extends BaseDatabase {
+class CallingDatabase extends BaseDatabase {
   /**
-   * Initialize an instance of the TopicDatabase
+   * Initialize an instance of the CallingDatabase
    * @constructor
    * @param {object} opts - IoC object holding dependencies
    */
   constructor(opts) {
     super(opts);
-    this.tableName = 'Topics';
-  }
-
-  async getAllTopics() {
-    const results = await super.query(`SELECT * FROM ${this.tableName}`);
-    return results;
-  }
-
-  async getTopic(tag) {
-    const results = await super.query(
-        `SELECT * FROM ${this.tableName} 
-        WHERE tag = ${tag}`);
-    return results;
+    this.tableName = 'Callings';
   }
 
   /**
    * Create Table if it doesn't exist
    */
   async ensureTableExists() {
+    throw ('Need to implement in callings database');
     const sql = `CREATE TABLE IF NOT EXISTS ${this.tableName} (
       topic_id serial NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 32767 CACHE 1 ),
       title character varying(100) COLLATE pg_catalog."default" NOT NULL,
@@ -39,8 +28,7 @@ class TopicDatabase extends BaseDatabase {
       talks_url character varying(200) COLLATE pg_catalog."default"
     )`
     await super.query(sql);
-    // TODO: change id to just be "id" and to be a string specific by the app
   }
 }
 
-module.exports = TopicDatabase;
+module.exports = CallingDatabase;

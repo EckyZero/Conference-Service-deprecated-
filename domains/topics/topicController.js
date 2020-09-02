@@ -63,7 +63,7 @@ class TopicController {
    */
   async post(req, res) {
     try {
-      await this.topicService.syncAllTopics();
+      await this.topicService.sync();
       res.status(201).send();
     } catch (e) {
       this.logger.warn(e, 'POST /topics failed');

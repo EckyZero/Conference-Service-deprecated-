@@ -12,6 +12,7 @@ class BaseDatabase {
   tableName;
   /**
    * Initialize and instance of the BaseDatabase
+   * @constructor
    * @param {object} opts - IoC object holding dependencies
    */
   constructor(opts) {
@@ -53,7 +54,7 @@ class BaseDatabase {
     return;
   }
 
-  async upsertAll(items, comparisonValue) {
+  async insertAllIfNotFound(items, comparisonValue) {
     const columnsArray = [...new Set(items.flatMap((i) => Object.keys(i)))];
     const columns = columnsArray.join(', ');
     const rows = items.map((i) => Object.values(i))
@@ -65,7 +66,7 @@ class BaseDatabase {
       const values = Object.values(rows[i]);
       for (let j = 0; j < values.length; j++) {
         const value = values[j];
-        // const constIntValue = parseInt(value);
+        
         // Begin grouping for this update
         if (j === 0) { 
           sql = sql.concat(`(`) 
@@ -102,8 +103,12 @@ class BaseDatabase {
     sql = sql.substring(0, sql.length - 2); // remove trailing space and comman
 
     sql = sql.concat(`
-      FROM data d
-      WHERE NOT EXISTS (SELECT 1 FROM ${this.tableName} s WHERE s.${comparisonValue} = d.${comparisonValue})`);
+      FROM data d`)
+
+    if (comparisonValue !== undefined && comparisonValue !== null) {
+      sql = sql.concat(`
+        WHERE NOT EXISTS (SELECT 1 FROM ${this.tableName} s WHERE s.${comparisonValue} = d.${comparisonValue})`);
+    }
 
     const results = await this.query(sql);
 
@@ -143,6 +148,14 @@ class BaseDatabase {
         else return resolve(data);
       });
     });
+  }
+
+  /**
+   * Abstract method to ensure subclasses add necessary logic for
+   * checking/instantiating their own table
+   */
+  async ensureTableExists() {
+    throw new Error('Cannot call abstract method "ensureTableExists"')
   }
 }
 

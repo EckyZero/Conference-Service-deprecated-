@@ -27,10 +27,10 @@ class SpeakerBuilder extends BaseBuilder {
     const speaker = new Speaker();
     const fullName = this._name($, el);
 
-    speaker.preferredName = fullName;
-    speaker.firstName = this.nameParser.parseFirstName(fullName);
-    speaker.middleName = this.nameParser.parseMiddleName(fullName);
-    speaker.lastName = this.nameParser.parseLastName(fullName);
+    speaker.person.preferredName = fullName;
+    speaker.person.firstName = this.nameParser.parseFirstName(fullName);
+    speaker.person.middleName = this.nameParser.parseMiddleName(fullName);
+    speaker.person.lastName = this.nameParser.parseLastName(fullName);
 
     return speaker;
   }

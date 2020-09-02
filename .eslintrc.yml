@@ -7,4 +7,6 @@ extends:
 parser: babel-eslint
 parserOptions:
   ecmaVersion: 11
-rules: {}
+rules: {
+  camelcase: 'off',
+}

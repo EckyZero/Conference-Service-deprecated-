@@ -1,17 +1,19 @@
 'use strict';
 
 const CONSTANTS = require('../../configs/constants.json');
+const BaseService = require('../shared/baseService');
 
 /**
  * Responsible for core business logic relating to Topics
  */
-class TopicService {
+class TopicService extends BaseService {
   /**
   * Represents a TopicService object
   * @constructor
   * @param {object} opts - IoC object holding dependencies
   */
   constructor(opts) {
+    super(opts);
     this.topicScraper = opts.topicScraper;
     this.topicDatabase = opts.topicDatabase;
     this.logger = opts.logger;
@@ -42,7 +44,7 @@ class TopicService {
   /**
    * Sync topics from the web to the database
    */
-  async syncAllTopics() {
+  async sync() {
     try {
       // Get latest topics from the web
       const topics = await this.topicScraper.getAllTopics();
@@ -50,7 +52,7 @@ class TopicService {
       await this.topicDatabase.ensureTableExists();
       // insert new topics,
       // only adding if records matching the tag don't already exist
-      await this.topicDatabase.upsertAll(topics, 'tag');
+      await this.topicDatabase.insertAllIfNotFound(topics, 'tag');
     } catch (error) {
       this.logger(err);
       throw err;
