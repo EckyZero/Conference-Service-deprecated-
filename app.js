@@ -3,6 +3,7 @@
 const _express = require('express');
 const _path = require('path');
 const _cookieParser = require('cookie-parser');
+const _database = require('./domains/shared/database');
 const talkRouter = require('./domains/talks/talkRouter');
 const topicRouter = require('./domains/topics/topicRouter');
 

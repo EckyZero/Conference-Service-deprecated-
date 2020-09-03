@@ -83,6 +83,24 @@ class TalkService extends BaseService {
     });
     return talks;
   }
+
+  /**
+   * Sync talks from the web to the database
+   */
+  async sync() {
+    try {
+      // Get latest topics from the web
+      const talks = await this.getAllTalks('web');
+      const values = topics.map((talks) => topic.dataValues);
+      // Save to the database
+      await Topic.bulkCreate(values, {
+        ignoreDuplicates: true,
+      });
+    } catch (error) {
+      this.logger(err);
+      throw err;
+    }
+  }
 }
 
 module.exports = TalkService;

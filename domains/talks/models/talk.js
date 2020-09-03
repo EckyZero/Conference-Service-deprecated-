@@ -1,6 +1,8 @@
 'use strict';
 
 const BaseModel = require('../../shared/baseModel');
+const database = require('../../shared/database');
+const {DataTypes, Model} = require('sequelize');
 
 /**
  * The Talk object given at a conference

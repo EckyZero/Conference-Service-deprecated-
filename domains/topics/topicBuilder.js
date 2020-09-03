@@ -25,11 +25,12 @@ class TopicBuilder extends BaseBuilder {
    * @return {Topic} - a topic object
    */
   build($, el) {
-    const topic = new Topic();
-
-    topic.title = this._title($, el);
-    topic.tag = this._tag($, el);
-    topic.talks_url = this._talksUrl($, el);
+    const topic = Topic.build({
+      title: this._title($, el),
+      tag: this._tag($, el),
+      talksUrl: this._talksUrl($, el),
+      talksCount: this._count($, el),
+    });
 
     return topic;
   }
@@ -80,6 +81,17 @@ class TopicBuilder extends BaseBuilder {
     const topicCounts = el.firstChild.data.split('(');
     const name = topicCounts[0].trim();
     return name.replace(/\s/g, '-').toLowerCase();
+  }
+
+  /**
+   * Parse the count of talks for the topic
+   * @param {jQuery} $ - Parser used to inspect the element
+   * @param {HTMLElement} el - the target HTMLElement to parse
+   * @return {number} - int representing the number of talks for the topic
+   */
+  _count($, el) {
+    const topicCounts = el.firstChild.data.split('(');
+    return topicCounts[1] ? parseInt(topicCounts[1].trim().slice(0, -1)) : null;
   }
 }
 

@@ -2,6 +2,7 @@
 
 const CONSTANTS = require('../../configs/constants.json');
 const BaseService = require('../shared/baseService');
+const Topic = require('./models/topic');
 
 /**
  * Responsible for core business logic relating to Topics
@@ -48,11 +49,11 @@ class TopicService extends BaseService {
     try {
       // Get latest topics from the web
       const topics = await this.topicScraper.getAllTopics();
-      // Ensure table is created
-      await this.topicDatabase.ensureTableExists();
-      // insert new topics,
-      // only adding if records matching the tag don't already exist
-      await this.topicDatabase.insertAllIfNotFound(topics, 'tag');
+      const values = topics.map((topic) => topic.dataValues);
+      // Save to the database
+      await Topic.bulkCreate(values, {
+        ignoreDuplicates: true,
+      });
     } catch (error) {
       this.logger(err);
       throw err;
