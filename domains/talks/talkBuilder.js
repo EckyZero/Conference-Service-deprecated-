@@ -1,6 +1,7 @@
 'use strict';
 
 const _routes = require('../../configs/routes.json');
+const _md5 = require('md5');
 const BaseBuilder = require('../shared/baseBuilder');
 const Talk = require('./models/talk');
 const Calling = require('../callings/models/calling');
@@ -35,13 +36,19 @@ class TalkBuilder extends BaseBuilder {
    * @return {Talk} - a talk object
    */
   build($, el) {
-    const talk = new Talk();
+    const talk = {};
 
     talk.title = this._title($, el);
     talk.speaker = this._speaker($, el);
     talk.session = this._session($, el);
     talk.detailUrl = this._url($, el);
-
+    // const talk = Talk.build({
+    //   title: this._title($, el),
+    //   speaker: this._speaker($, el),
+    //   session: this._session($, el),
+    //   detailUrl: this._url($, el),
+    // });
+    // return Talk.build(talk);
     return talk;
   }
 
@@ -53,6 +60,8 @@ class TalkBuilder extends BaseBuilder {
    */
   appendDetails($, talk) {
     const conf = this.sessionBuilder.buildConferenceDetails($, talk.title);
+    const role = this._role($);
+    const title = this._speakerTitle($);
 
     talk.session.name = conf.sessionName;
     talk.sessionOrder = conf.sessionOrder;
@@ -61,10 +70,21 @@ class TalkBuilder extends BaseBuilder {
     talk.description = this._description($);
     talk.quote = this._quote($);
     talk.thumbnailUrl = this._thumbnail($);
-    talk.speaker.calling.role = this._role($);
-    talk.speaker.calling.title = this._speakerTitle($);
+    talk.speaker.calling.role = role;
+    talk.speaker.calling.title = title;
+    talk.speaker.calling.uid = _md5(`${title}-${role}`);
+
+    // Assign composite identifiers to ensure uniqueness
+    const sessionIdentifier = `${talk.session.conference.timeOfYear} - ${conf.sessionName}`
+    const speakerIdentifier = `${talk.session.conference.timeOfYear} - ${talk.speaker.person.preferredName}`;
+    const talkIdentifier = `${speakerIdentifier} - ${talk.title}`
+
+    talk.session.uid = _md5(sessionIdentifier);
+    talk.speaker.uid = _md5(speakerIdentifier);
+    talk.uid = _md5(talkIdentifier);
 
     return talk;
+    // return Talk.build(talk);
   }
 
   /**
@@ -145,6 +165,10 @@ class TalkBuilder extends BaseBuilder {
   _role($) {
     let role = $('.author-role')[0] ?
       $('.author-role')[0].firstChild.data : $('#p2')[0].firstChild.data;
+
+    if (role === undefined || role === null) {
+      return '';
+    }
 
     if (role.length > 60) {
       role = 'President of The Church of Jesus Christ of Latter-day Saints';

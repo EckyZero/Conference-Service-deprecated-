@@ -27,7 +27,8 @@
     "pg-format": "1.0.4",
     "uuid": "8.3.0",
     "sequelize": "6.3.5",
-    "pg-hstore": "2.3.3"
+    "pg-hstore": "2.3.3",
+    "md5": "2.3.0"
   },
   "devDependencies": {
     "babel-eslint": "^10.1.0",

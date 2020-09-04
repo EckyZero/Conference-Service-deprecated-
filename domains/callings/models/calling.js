@@ -1,32 +1,42 @@
 'use strict';
 
-const BaseModel = require('../../shared/baseModel');
+const database = require('../../shared/database');
+const {DataTypes, Model} = require('sequelize');
 
 /**
  * The calling of a speaker
  */
-class Calling extends BaseModel {
+class Calling extends Model {
     // enum of all possible titles
     static TITLES = {
       BROTHER: 'Brother',
       SISTER: 'Sister',
       ELDER: 'Elder',
     };
-
-    title;
-    role;
-
-    /**
-     * Initialize an instance of a Calling
-     * @constructor
-     * @param {string} title - prefix for the title (ex: Brother, Sister, etc.)
-     * @param {string} role - their function in ('of the Sunday School')
-     */
-    constructor(title, role) {
-      super();
-      this.title = title;
-      this.role = role;
-    }
 }
+
+Calling.init({
+  uid: {
+    type: DataTypes.STRING,
+    primaryKey: true,
+    allowNull: false,
+    unique: true,
+  },
+  role: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
+  title: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
+}, {
+  sequelize: database,
+  modelName: 'calling',
+});
+
+(async () => {
+  await Calling.sync();
+})();
 
 module.exports = Calling;

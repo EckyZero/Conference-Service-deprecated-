@@ -65,6 +65,26 @@ class TalkController {
       return;
     }
   }
+
+  /**
+   * Sync data from the website to the app's database
+   * @param {object} req - the http request object
+   * @param {object} res - the http response object
+   */
+  async post(req, res) {
+    try {
+      await this.talkService.sync();
+      res.status(201).send();
+    } catch (e) {
+      this.logger.warn(e, 'POST /talks failed');
+      const response = new ServiceResponse();
+      
+      response.isError = true;
+      response.errorMessage = `Request completed with error: ${e.message}`;
+
+      res.status(500).send(response);
+    }
+  }
 }
 
 module.exports = TalkController;

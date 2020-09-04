@@ -14,8 +14,6 @@ const TopicDatabase = require('../topics/topicDatabase');
 const SessionBuilder = require('../conferences/sessionBuilder');
 const ConferenceBuilder = require('../conferences/conferenceBuilder');
 const SpeakerBuilder = require('../speakers/speakerBuilder');
-const SpeakerService = require('../speakers/speakerService');
-const SpeakerDatabase = require('../speakers/speakerDatabase');
 const CallingService = require('../callings/callingService');
 const CallingDatabase = require('../callings/callingDatabase');
 const PersonService = require('../persons/personService');
@@ -58,8 +56,6 @@ class IocConstructor {
       sessionBuilder: asClass(SessionBuilder),
       conferenceBuilder: asClass(ConferenceBuilder),
       speakerBuilder: asClass(SpeakerBuilder),
-      speakerService: asClass(SpeakerService),
-      speakerDatabase: asClass(SpeakerDatabase),
       callingService: asClass(CallingService),
       callingDatabase: asClass(CallingDatabase),
       personService: asClass(PersonService),

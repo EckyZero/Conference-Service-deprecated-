@@ -1,6 +1,7 @@
 'use strict';
 
 const _routes = require(`../../configs/routes.json`);
+const _md5 = require('md5');
 
 const BaseBuilder = require('../shared/baseBuilder');
 const Topic = require('./models/topic');
@@ -25,8 +26,10 @@ class TopicBuilder extends BaseBuilder {
    * @return {Topic} - a topic object
    */
   build($, el) {
+    const title = this._title($, el);
     const topic = Topic.build({
-      title: this._title($, el),
+      uid: _md5(title),
+      title: title,
       tag: this._tag($, el),
       talksUrl: this._talksUrl($, el),
       talksCount: this._count($, el),

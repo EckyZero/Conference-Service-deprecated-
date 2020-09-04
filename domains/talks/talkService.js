@@ -1,22 +1,22 @@
 'use strict';
 
-const _async = require('async');
-const BaseService = require('../shared/baseService');
+const Talk = require('./models/talk');
+const { Speaker } = require('./models/talk');
 
 /**
  * Responsible for core business logic relating to Talks
  */
-class TalkService extends BaseService {
+class TalkService {
   /**
    * Represents a TalkService object
    * @constructor
    * @param {object} opts - IoC object holding dependencies
    */
   constructor(opts) {
-    super(opts);
     this.topicService = opts.topicService;
     this.talkScraper = opts.talkScraper;
     this.objectValidator = opts.objectValidator;
+    this.logger = opts.logger;
   }
 
   /**
@@ -55,17 +55,20 @@ class TalkService extends BaseService {
   async getTalksByTopics(topics) {
     let talks = [];
 
-    await _async.forEach(topics, async (topic) => {
+    for (let i = 0; i < topics.length; i++) {
+      const topic = topics[i];
       const topicTalks = await this.getTalksByTopic(topic);
       if (this.objectValidator.isValid(topicTalks)) {
         talks = talks.concat(topicTalks);
       }
-    });
+    }
+
     return talks;
   }
 
   /**
    * Get all Talks matching the source
+   * @async
    * @param {string} source - source to query (web/cache)
    * @return {Array} - list of all talks from the source
    */
@@ -74,31 +77,36 @@ class TalkService extends BaseService {
 
     const topics = await this.topicService.getAllTopics(source);
 
-    await _async.forEach(topics, async (topic) => {
+    for (let i = 0; i < topics.length; i++) {
+      const topic = topics[i];
       const topicTalks = await this.getTalksByTopic(topic.tag);
-
       if (this.objectValidator.isValid(topicTalks)) {
         talks = talks.concat(topicTalks);
       }
-    });
+    }
     return talks;
   }
 
   /**
+   * @async
    * Sync talks from the web to the database
    */
   async sync() {
     try {
       // Get latest topics from the web
-      const talks = await this.getAllTalks('web');
-      const values = topics.map((talks) => topic.dataValues);
+      const talks = await this.getTalksByTopic('baptism');
+      // const values = talks.map((talk) => talk.dataValues);
       // Save to the database
-      await Topic.bulkCreate(values, {
+      await Talk.bulkCreate(talks, {
         ignoreDuplicates: true,
+        include: [{
+          association: Talk.Speaker,
+          ignoreDuplicates: true,
+        }],
       });
     } catch (error) {
-      this.logger(err);
-      throw err;
+      this.logger.error(error);
+      throw error;
     }
   }
 }

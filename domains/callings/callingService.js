@@ -22,14 +22,14 @@ class CallingService extends BaseService {
    * Sync callings from the web to the database
    */
   async sync(callings) {
-    try {
-      // Ensure table is created
-      await this.callingDatabase.ensureTableExists();
-      await this.callingDatabase.insertAllIfNotFound(topics, 'role');
-    } catch (error) {
-      this.logger(err);
-      throw err;
-    }
+    // try {
+    //   // Ensure table is created
+    //   await this.callingDatabase.ensureTableExists();
+    //   await this.callingDatabase.insertAllIfNotFound(topics, 'role');
+    // } catch (error) {
+    //   this.logger(err);
+    //   throw err;
+    // }
   }
 }
 

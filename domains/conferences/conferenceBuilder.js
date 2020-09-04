@@ -1,5 +1,7 @@
 'use strict';
 
+const _md5 = require('md5');
+
 const BaseBuilder = require('../shared/baseBuilder');
 const Conference = require('./models/conference');
 
@@ -24,10 +26,22 @@ class ConferenceBuilder extends BaseBuilder {
    * @return {Conference} - a conference object
    */
   build($, el) {
-    const conference = new Conference();
+    const conference = {};
+    const month = this._month($, el);
+    const year = this._year($, el);
 
-    conference.month = this._month($, el);
-    conference.year = this._year($, el);
+    conference.month = month;
+    conference.year = year;
+    conference.uid = _md5(`${month}-${year}`);
+
+    // const month = this._month($, el);
+    // const year = this._year($, el);
+    // const conference = Conference.build({
+    //   month: month,
+    //   year: year,
+    //   timeOfYear: `${month}-${year}`
+    // });
+    // return conference;
 
     return conference;
   }

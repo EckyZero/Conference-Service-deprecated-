@@ -13,4 +13,9 @@ _router.get('/', _validator.validateGet(), async (req, res) => {
   await controller.get(req, res);
 });
 
+_router.post('/', async (req, res) => {
+  const controller = _container.resolve(_constants.TALK_CONTROLLER);
+  await controller.post(req, res);
+});
+
 module.exports = _router;

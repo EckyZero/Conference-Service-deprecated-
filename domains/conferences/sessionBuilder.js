@@ -24,9 +24,14 @@ class SessionBuilder extends BaseBuilder {
    * @return {Session} - a session object
    */
   build($, el) {
-    const session = new Session();
+    const session = {};
 
     session.conference = this._conference($, el);
+
+    // const session = Session.build({
+    //   sessionConference: uuidv4(),
+    //   conference: this._conference($, el),
+    // });
 
     return session;
   }

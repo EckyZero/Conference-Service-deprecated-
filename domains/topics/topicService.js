@@ -1,20 +1,18 @@
 'use strict';
 
 const CONSTANTS = require('../../configs/constants.json');
-const BaseService = require('../shared/baseService');
 const Topic = require('./models/topic');
 
 /**
  * Responsible for core business logic relating to Topics
  */
-class TopicService extends BaseService {
+class TopicService {
   /**
   * Represents a TopicService object
   * @constructor
   * @param {object} opts - IoC object holding dependencies
   */
   constructor(opts) {
-    super(opts);
     this.topicScraper = opts.topicScraper;
     this.topicDatabase = opts.topicDatabase;
     this.logger = opts.logger;
@@ -40,7 +38,7 @@ class TopicService extends BaseService {
         break;
     }
     return topics;
-  };
+  }
 
   /**
    * Sync topics from the web to the database
@@ -60,5 +58,7 @@ class TopicService extends BaseService {
     }
   }
 }
+
+// TODO: Create POST route and controller for Talks to trigger this sync
 
 module.exports = TopicService;

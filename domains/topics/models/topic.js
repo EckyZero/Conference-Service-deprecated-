@@ -9,19 +9,19 @@ const {DataTypes, Model} = require('sequelize');
 class Topic extends Model { }
 
 Topic.init({
-  topicId: {
-    type: DataTypes.INTEGER,
-    autoIncrement: true,
-    allowNull: true,
-  },
-  title: {
+  uid: {
     type: DataTypes.STRING,
     primaryKey: true,
     allowNull: false,
+    unique: true,
+  },
+  title: {
+    type: DataTypes.STRING,
+    allowNull: true,
   },
   tag: {
     type: DataTypes.STRING,
-    allowNull: false,
+    allowNull: true,
   },
   talksUrl: {
     type: DataTypes.STRING,
@@ -33,6 +33,7 @@ Topic.init({
   },
 }, {
   sequelize: database,
+  modelName: 'topic',
 });
 
 (async () => {

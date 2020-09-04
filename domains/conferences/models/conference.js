@@ -1,21 +1,35 @@
 ' use strict';
 
-const BaseModel = require('../../shared/baseModel');
+const database = require('../../shared/database');
+const {DataTypes, Model} = require('sequelize');
 
 /**
  * General Conference Object
  */
-class Conference extends BaseModel {
-  year;
-  month;
+class Conference extends Model { }
 
-  /**
-   * Initialize a Conference object
-   * @constructor
-   */
-  constructor() {
-    super();
-  }
-}
+Conference.init({
+  uid: {
+    type: DataTypes.STRING,
+    primaryKey: true,
+    allowNull: false,
+    unique: true,
+  },
+  year: {
+    type: DataTypes.SMALLINT,
+    allowNull: true,
+  },
+  month: {
+    type: DataTypes.SMALLINT,
+    allowNull: true,
+  },
+}, {
+  sequelize: database,
+  modelName: 'conference',
+});
+
+(async () => {
+  await Conference.sync();
+})();
 
 module.exports = Conference;
