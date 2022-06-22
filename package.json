@@ -16,7 +16,7 @@
     "@google-cloud/secret-manager": "~3.0.0",
     "axios": "~0.21.1",
     "cheerio": "~1.0.0-rc.3",
-    "async": "~3.2.0",
+    "async": "~3.2.2",
     "bunyan": "~1.8.12",
     "needle": "~2.5.0",
     "awilix": "~4.2.6",
